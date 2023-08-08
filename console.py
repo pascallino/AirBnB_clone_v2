@@ -93,6 +93,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
             else:
                 del loadallobj[clName_id]
+                storage.save()
 
     def do_all(self, arg):
         """ Deletes an instance based on the
