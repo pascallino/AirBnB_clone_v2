@@ -94,7 +94,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
             elif len(args) == 1:
                 print("** instance id missing **")
-            elif clName_id not in loadallobj:
+            elif not clName_id in loadallobj:
                 print("** no instance found **")
             else:
                 del loadallobj[clName_id]
@@ -103,6 +103,7 @@ class HBNBCommand(cmd.Cmd):
     def do_all(self, arg):
         """Prints all string representation of all
         instances based or not on the class name.
+        <class name>.all(), all, all <class name>
         """
         objlist = []
         args = tokenize(arg)
@@ -167,13 +168,24 @@ class HBNBCommand(cmd.Cmd):
                     upt.__dict__[key] = value
         storage.save()
 
+    def do_count(self, arg):
+        """Usage: count <class> or <class>.count()
+        Retrieve the number of instances of a given class."""
+        args = tokenize(arg)
+        count = 0
+        for Allobj in storage.all().values():
+            if args[0] == Allobj.__class__.__name__:
+                count += 1
+        print(count)
+
     def default(self, arg):
         """cmd default behavior for cmd module when input is invalid"""
         func = {
             "all": self.do_all,
             "show": self.do_show,
             "destroy": self.do_destroy,
-            "update": self.do_update
+            "update": self.do_update,
+            "count": self.do_count
         }
         match = re.search(r"\.", arg)
         if match is not None:
@@ -181,8 +193,13 @@ class HBNBCommand(cmd.Cmd):
             match = re.search(r"\((.*?)\)", argl[1])
             if match is not None:
                 command = [argl[1][:match.span()[0]], match.group()[1:-1]]
+                match = re.search(r"\((.*?)\)", argl[1])
+                argl[1] = match.group()[2:-2]
                 if command[0] in func.keys():
-                    call = f"{argl[0]} {command[0]}"
+                    if len(argl[1]) > 20:
+                        call = f"{argl[0]} {argl[1]} {command[0]}"
+                    else:
+                        call = f"{argl[0]} {command[0]}"
                     return func[command[0]](call)
         print("*** Unknown syntax: {}".format(arg))
 
