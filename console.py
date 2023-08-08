@@ -60,7 +60,7 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def emptyline(self):
-        """ Empty line triggered """
+        """Empty line triggered"""
         pass
 
     def do_create(self, arg):
@@ -97,9 +97,7 @@ class HBNBCommand(cmd.Cmd):
                 print(loadallobj[clName_id])
 
     def do_destroy(self, arg):
-        """ Prints the string representation of an
-        instance based on the class name and id
-        """
+        """Deletes an object from file.json"""
         args = tokenize(arg)
         loadallobj = storage.all()
         if len(args) > 1:

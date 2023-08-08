@@ -30,16 +30,22 @@ class TestHBNBCommand_help(unittest.TestCase):
     """ testing quit for the interpreter """
 
     def test_help_quit(self):
-        tq = r"Quit command to exit the program."
+        quit = r"Quit command to exit the program."
         with patch("sys.stdout", new=StringIO()) as out:
             self.assertFalse(HBNBCommand().onecmd('help quit'))
-            self.assertEqual(tq, out.getvalue().strip())
+            self.assertEqual(quit, out.getvalue().strip())
 
     def test_help_EOF(self):
         eof = "End of File"
         with patch("sys.stdout", new=StringIO()) as out:
             self.assertFalse(HBNBCommand().onecmd('help EOF'))
             self.assertEqual(eof, out.getvalue().strip())
+
+    def test_help_destroy(self):
+        des="Deletes an object from file.json"
+        with patch("sys.stdout", new=StringIO()) as out:
+            self.assertFalse(HBNBCommand().onecmd('help destroy'))
+            self.assertEqual(des, out.getvalue().strip())
 
 
 if __name__ == '__main__':
