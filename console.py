@@ -17,7 +17,24 @@ from models.state import State
 def tokenize(line):
     """ tokenize : converts the line into tuples and last
     element is always the full line"""
-    return [i.strip(",") for i in split(line)]
+    aud = {}
+    dictbraces = re.search(r"\{(.*?)\}", line)
+    if dictbraces is None:
+        aud = []
+        dictbraces = re.search(r"\[(.*?)\]", line)
+    if dictbraces is None:
+        return [i.strip(",") for i in split(line)]
+    else:
+        aud = dictbraces.group()
+        aul = []
+        k = 0
+        for i in split(line):
+            aul.append(i.strip(" "))
+            k = k + 1
+            if k == 2:
+                break
+        aul.append(eval(aud))
+        return aul
 
 
 class HBNBCommand(cmd.Cmd):
@@ -126,7 +143,6 @@ class HBNBCommand(cmd.Cmd):
         <attribute name> "<attribute value>"""
         args = tokenize(arg)
         loadallobj = storage.all()
-        print(len(args))
         if len(args) > 1:
             clName_id = f"{args[0]}.{args[1]}"
         if len(args) == 0:
@@ -145,22 +161,20 @@ class HBNBCommand(cmd.Cmd):
             print("** attribute name missing **")
             return False
         if len(args) == 3:
-            try:
-                type(eval(argl[2])) != dict
-            except NameError:
+            if not isinstance(args[2], dict):
                 print("** value missing **")
                 return False
-        if len(args) == 4:
+        if len(args) >= 4 and not isinstance(args[2], dict):
             upt = loadallobj[clName_id]
             if args[2] in upt.__class__.__dict__.keys():
                 valdatatype = type(upt.__class__.__dict__[args[2]])
                 upt.__dict__[args[2]] = valdatatype(args[3])
             else:
                 upt.__dict__[args[2]] = args[3]
-        elif len(args) == 3 and type(eval(argl[2])) == dict:
+        elif len(args) >= 3:
             upt = loadallobj[clName_id]
             keylist = upt.__class__.__dict__
-            for key, value in eval(argl[2]).items():
+            for key, value in args[2].items():
                 if (key in keylist.keys() and
                         type(keylist[key]) in [str, int, float]):
                     valdatatype = type(upt.__class__.__dict__[key])
@@ -188,6 +202,8 @@ class HBNBCommand(cmd.Cmd):
             "update": self.do_update,
             "count": self.do_count
         }
+        aul = []
+        aud = {}
         match = re.search(r"\.", arg)
         if match is not None:
             argl = [arg[:match.span()[0]], arg[match.span()[1]:]]
@@ -198,16 +214,28 @@ class HBNBCommand(cmd.Cmd):
                     match = re.search(r"\((.*?)\)", argl[1])
                     argl[1] = match.group()[2:-2]
                 elif cmd[0] == "update":
-                    au = [i.strip(",") for i in split(match.group()[1:-1])]
+                    db = re.search(r"\{(.*?)\}", match.group()[1:-1])
+                    if db is None:
+                        db = re.search(r"\[(.*?)\]", match.group()[1:-1])
+                    if db is None:
+                        au = [i.strip(",") for i in split(match.group()[1:-1])]
+                    else:
+                        for i in split(match.group()[1:-1]):
+                            aul.append(i.strip(","))
+                            break
+                        aud = db.group()
                 if cmd[0] in func.keys():
                     if len(argl[1]) > 20 and not cmd[0] == "update":
                         call = f"{argl[0]} {argl[1]} {cmd[0]}"
-                    elif cmd[0] == "update":
+                    elif cmd[0] == "update" and len(aul) <= 0:
                         call = f"{argl[0]} {au[0]} {au[1]} {au[2]}"
+                    elif cmd[0] == "update" and len(aul) > 0:
+                        call = f"{argl[0]} {aul[0]} {aud}"
                     else:
                         call = f"{argl[0]} {cmd[0]}"
                     return func[cmd[0]](call)
         print("*** Unknown syntax: {}".format(arg))
+        return False
 
 
 if __name__ == '__main__':
