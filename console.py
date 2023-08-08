@@ -94,7 +94,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
             elif len(args) == 1:
                 print("** instance id missing **")
-            elif not clName_id in loadallobj:
+            elif clName_id not in loadallobj:
                 print("** no instance found **")
             else:
                 del loadallobj[clName_id]
