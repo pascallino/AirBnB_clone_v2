@@ -126,6 +126,7 @@ class HBNBCommand(cmd.Cmd):
         <attribute name> "<attribute value>"""
         args = tokenize(arg)
         loadallobj = storage.all()
+        print(len(args))
         if len(args) > 1:
             clName_id = f"{args[0]}.{args[1]}"
         if len(args) == 0:
@@ -192,15 +193,20 @@ class HBNBCommand(cmd.Cmd):
             argl = [arg[:match.span()[0]], arg[match.span()[1]:]]
             match = re.search(r"\((.*?)\)", argl[1])
             if match is not None:
-                command = [argl[1][:match.span()[0]], match.group()[1:-1]]
-                match = re.search(r"\((.*?)\)", argl[1])
-                argl[1] = match.group()[2:-2]
-                if command[0] in func.keys():
-                    if len(argl[1]) > 20:
-                        call = f"{argl[0]} {argl[1]} {command[0]}"
+                cmd = [argl[1][:match.span()[0]], match.group()[1:-1]]
+                if cmd[0] != "update":
+                    match = re.search(r"\((.*?)\)", argl[1])
+                    argl[1] = match.group()[2:-2]
+                elif cmd[0] == "update":
+                    au = [i.strip(",") for i in split(match.group()[1:-1])]
+                if cmd[0] in func.keys():
+                    if len(argl[1]) > 20 and not cmd[0] == "update":
+                        call = f"{argl[0]} {argl[1]} {cmd[0]}"
+                    elif cmd[0] == "update":
+                        call = f"{argl[0]} {au[0]} {au[1]} {au[2]}"
                     else:
-                        call = f"{argl[0]} {command[0]}"
-                    return func[command[0]](call)
+                        call = f"{argl[0]} {cmd[0]}"
+                    return func[cmd[0]](call)
         print("*** Unknown syntax: {}".format(arg))
 
 
