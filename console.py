@@ -25,7 +25,12 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
     __classes = [
             "BaseModel",
-            "User"]
+            "User",
+            "State",
+            "City",
+            "Place",
+            "Amenity",
+            "Review"]
     # intro = 'Simple Command Interpreter for the holberton Web app'
 
     def do_EOF(self, arg):
@@ -107,7 +112,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
             else:
                 for obj in loadallobj.values():
-                    if obj__class__.__name__ == args[0]:
+                    if obj.__class__.__name__ == args[0]:
                         objlist.append(obj.__str__())
                 print(objlist)
         else:
@@ -161,6 +166,25 @@ class HBNBCommand(cmd.Cmd):
                 else:
                     upt.__dict__[key] = value
         storage.save()
+
+    def default(self, arg):
+        """cmd default behavior for cmd module when input is invalid"""
+        func = {
+            "all": self.do_all,
+            "show": self.do_show,
+            "destroy": self.do_destroy,
+            "update": self.do_update
+        }
+        match = re.search(r"\.", arg)
+        if match is not None:
+            argl = [arg[:match.span()[0]], arg[match.span()[1]:]]
+            match = re.search(r"\((.*?)\)", argl[1])
+            if match is not None:
+                command = [argl[1][:match.span()[0]], match.group()[1:-1]]
+                if command[0] in func.keys():
+                    call = f"{argl[0]} {command[0]}"
+                    return func[command[0]](call)
+        print("*** Unknown syntax: {}".format(arg))
 
 
 if __name__ == '__main__':
