@@ -101,13 +101,13 @@ class HBNBCommand(cmd.Cmd):
                 storage.save()
 
     def do_all(self, arg):
-        """ Deletes an instance based on the
-        class name and id
+        """Prints all string representation of all
+        instances based or not on the class name.
         """
         objlist = []
         args = tokenize(arg)
         loadallobj = storage.all()
-        if len(args) > 1:
+        if len(args) >= 1:
             if not args[0] in self.__classes:
                 print("** class doesn't exist **")
             else:
