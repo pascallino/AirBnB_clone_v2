@@ -205,7 +205,7 @@ class HBNBCommand(cmd.Cmd):
                 cmd = [argl[1][:match.span()[0]], match.group()[1:-1]]
                 if cmd[0] != "update":
                     match = re.search(r"\((.*?)\)", argl[1])
-                    argl[1] = match.group()[2:-2]
+                    argl[1] = match.group()[1:-1]
                 elif cmd[0] == "update":
                     db = re.search(r"\{(.*?)\}", match.group()[1:-1])
                     if db is None:
@@ -218,14 +218,14 @@ class HBNBCommand(cmd.Cmd):
                             break
                         aud = db.group()
                 if cmd[0] in func.keys():
-                    if len(argl[1]) > 20 and not cmd[0] == "update":
-                        call = f"{argl[0]} {argl[1]} {cmd[0]}"
+                    if len(argl[1]) > 0 and not cmd[0] == "update":
+                        call = f"{argl[0]} {argl[1]}"
                     elif cmd[0] == "update" and len(aul) <= 0:
                         call = f"{argl[0]} {au[0]} {au[1]} {au[2]}"
                     elif cmd[0] == "update" and len(aul) > 0:
                         call = f"{argl[0]} {aul[0]} {aud}"
                     else:
-                        call = f"{argl[0]} {cmd[0]}"
+                        call = f"{argl[0]} {''}"
                     return func[cmd[0]](call)
         print("*** Unknown syntax: {}".format(arg))
         return False
