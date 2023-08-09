@@ -73,6 +73,28 @@ class TestHBNBCommand_help(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd('help create'))
             self.assertEqual(ct, out.getvalue().strip())
 
+    def test_help_count(self):
+        cnt = """Usage: count <class> or <class>.count()
+        Retrieve the number of instances of a given class."""
+        with patch("sys.stdout", new=StringIO()) as out:
+            self.assertFalse(HBNBCommand().onecmd('help count'))
+            self.assertEqual(cnt, out.getvalue().strip())
+
+    def test_help_help(self):
+        help = "List available commands with \"help\" "\
+                "or detailed help with \"help cmd\"."
+        with patch("sys.stdout", new=StringIO()) as out:
+            self.assertFalse(HBNBCommand().onecmd('help help'))
+            self.assertEqual(help, out.getvalue().strip())
+
+    def test_help(self):
+        help = ("Documented commands (type help <topic>):\n"
+             "========================================\n"
+             "EOF  all  count  create  destroy  help  quit  show  update")
+        with patch("sys.stdout", new=StringIO()) as output:
+            self.assertFalse(HBNBCommand().onecmd("help"))
+            self.assertEqual(help, output.getvalue().strip())
+
 
 if __name__ == '__main__':
     unittest.main()
