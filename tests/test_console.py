@@ -68,7 +68,7 @@ class TestHBNBCommand_help(unittest.TestCase):
             self.assertEqual(upt, out.getvalue().strip())
 
     def test_help_create(self):
-        ct = """Ex: $ create User/State create an object class with an id""" 
+        ct = """Ex: $ create User/State create an object class with an id"""
         with patch("sys.stdout", new=StringIO()) as out:
             self.assertFalse(HBNBCommand().onecmd('help create'))
             self.assertEqual(ct, out.getvalue().strip())
@@ -89,11 +89,25 @@ class TestHBNBCommand_help(unittest.TestCase):
 
     def test_help(self):
         help = ("Documented commands (type help <topic>):\n"
-             "========================================\n"
-             "EOF  all  count  create  destroy  help  quit  show  update")
+                "========================================\n"
+                "EOF  all  count  create  destroy  help  quit  show  update")
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("help"))
             self.assertEqual(help, output.getvalue().strip())
+
+
+class TestHBNBCommand_quit(unittest.TestCase):
+    """ Test EOF and quit for the cmd interpreter """
+
+    def test_EOF(self):
+        """ End of file test """
+        with patch("sys.stdout", new=StringIO()) as output:
+            self.assertTrue(HBNBCommand().onecmd("EOF"))
+
+    def test_quit(self):
+        """ quit the program """
+        with patch("sys.stdout", new=StringIO()) as output:
+            self.assertTrue(HBNBCommand().onecmd("quit"))
 
 
 if __name__ == '__main__':
