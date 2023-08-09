@@ -197,6 +197,7 @@ class HBNBCommand(cmd.Cmd):
         }
         aul = []
         aud = {}
+        au = []
         match = re.search(r"\.", arg)
         if match is not None:
             argl = [arg[:match.span()[0]], arg[match.span()[1]:]]
@@ -218,10 +219,22 @@ class HBNBCommand(cmd.Cmd):
                             break
                         aud = db.group()
                 if cmd[0] in func.keys():
+                    au0 = ""
+                    au1 = ""
+                    au2 = ""
+                    if len(au) == 1:
+                        au0 = au[0]
+                    elif len(au) == 2:
+                        au0 = au[0]
+                        au1 = au[1]
+                    elif len(au) == 3:
+                        au0 = au[0]
+                        au1 = au[1]
+                        au2 = au[2]
                     if len(argl[1]) > 0 and not cmd[0] == "update":
                         call = f"{argl[0]} {argl[1]}"
-                    elif cmd[0] == "update" and len(aul) <= 0:
-                        call = f"{argl[0]} {au[0]} {au[1]} {au[2]}"
+                    elif cmd[0] == "update" and len(aul) <= 0 and len(au) > 0:
+                        call = f"{argl[0]} {au0} {au1} {au2}"
                     elif cmd[0] == "update" and len(aul) > 0:
                         call = f"{argl[0]} {aul[0]} {aud}"
                     else:
