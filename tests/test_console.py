@@ -42,10 +42,36 @@ class TestHBNBCommand_help(unittest.TestCase):
             self.assertEqual(eof, out.getvalue().strip())
 
     def test_help_destroy(self):
-        des="Deletes an object from file.json"
+        des = "Deletes an object from file.json"
         with patch("sys.stdout", new=StringIO()) as out:
             self.assertFalse(HBNBCommand().onecmd('help destroy'))
             self.assertEqual(des, out.getvalue().strip())
+
+    def test_help_show(self):
+        sh = """Prints the string representation of an \
+                instance based on the class name and id"""
+        with patch("sys.stdout", new=StringIO()) as out:
+            self.assertFalse(HBNBCommand().onecmd('help show'))
+            self.assertEqual(sh, out.getvalue().strip())
+
+    def test_help_all(self):
+        all = """<class name>.all(), all, all <class name>"""
+        with patch("sys.stdout", new=StringIO()) as out:
+            self.assertFalse(HBNBCommand().onecmd('help all'))
+            self.assertEqual(all, out.getvalue().strip())
+
+    def test_help_update(self):
+        upt = """Usage: update <class name> <id>
+        <attribute name> "<attribute value>"""
+        with patch("sys.stdout", new=StringIO()) as out:
+            self.assertFalse(HBNBCommand().onecmd('help update'))
+            self.assertEqual(upt, out.getvalue().strip())
+
+    def test_help_create(self):
+        ct = """Ex: $ create User/State create an object class with an id""" 
+        with patch("sys.stdout", new=StringIO()) as out:
+            self.assertFalse(HBNBCommand().onecmd('help create'))
+            self.assertEqual(ct, out.getvalue().strip())
 
 
 if __name__ == '__main__':

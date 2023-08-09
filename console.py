@@ -64,8 +64,7 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_create(self, arg):
-        """Ex: $ create BaseModel
-        create an object class with an id """
+        """Ex: $ create User/State create an object class with an id"""
         args = tokenize(arg)
         if len(args) == 0:
             print("** class name missing **")
@@ -77,9 +76,8 @@ class HBNBCommand(cmd.Cmd):
                 storage.save()
 
     def do_show(self, arg):
-        """ Prints the string representation of an
-        instance based on the class name and id
-        """
+        """ Prints the string representation of an \
+                instance based on the class name and id"""
         args = tokenize(arg)
         loadallobj = storage.all()
         if len(args) > 1:
@@ -116,10 +114,7 @@ class HBNBCommand(cmd.Cmd):
                 storage.save()
 
     def do_all(self, arg):
-        """Prints all string representation of all
-        instances based or not on the class name.
-        <class name>.all(), all, all <class name>
-        """
+        """<class name>.all(), all, all <class name>"""
         objlist = []
         args = tokenize(arg)
         loadallobj = storage.all()
