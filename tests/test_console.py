@@ -110,5 +110,9 @@ class TestHBNBCommand_quit(unittest.TestCase):
             self.assertTrue(HBNBCommand().onecmd("quit"))
 
 
+class TestHBNBCommand_create(unittest.TestCase):
+    """ test for create command and output """
+
+
 if __name__ == '__main__':
     unittest.main()
