@@ -1009,6 +1009,84 @@ class TestHBNBCommand_update(unittest.TestCase):
         test_dict = storage.all()["Amenity.{}".format(AmdId)]
         self.assertEqual("house", test_dict.__dict__["asset"])
 
+    def test_update_if_value_are_same_parenthesis(self):
+        """ test_update_if_value_are_same_parenthesis """
+        with patch("sys.stdout", new=StringIO()) as output:
+            HBNBCommand().onecmd("create BaseModel")
+            bmId = output.getvalue().strip()
+        Cmd = "BaseModel.update({}, first_name, 'pascal')".format(bmId)
+        self.assertFalse(HBNBCommand().onecmd(Cmd))
+        test_dict = storage.all()["BaseModel.{}".format(bmId)]
+        self.assertEqual("pascal", test_dict.__dict__["first_name"])
+
+        with patch("sys.stdout", new=StringIO()) as output:
+            HBNBCommand().onecmd("create State")
+            stateId = output.getvalue().strip()
+        Cmd = "State.update({}, State_name, 'Lagos')".format(stateId)
+        self.assertFalse(HBNBCommand().onecmd(Cmd))
+        test_dict = storage.all()["State.{}".format(stateId)]
+        self.assertEqual("Lagos", test_dict.__dict__["State_name"])
+
+        with patch("sys.stdout", new=StringIO()) as output:
+            HBNBCommand().onecmd("create Place")
+            PlaceId = output.getvalue().strip()
+        Cmd = "Place.update({}, placeid, '89')".format(PlaceId)
+        self.assertFalse(HBNBCommand().onecmd(Cmd))
+        test_dict = storage.all()["Place.{}".format(PlaceId)]
+        self.assertEqual("89", test_dict.__dict__["placeid"])
+
+        with patch("sys.stdout", new=StringIO()) as output:
+            HBNBCommand().onecmd("create User")
+            UId = output.getvalue().strip()
+        Cmd = "User.update({}, name, ojukwu)".format(UId)
+        self.assertFalse(HBNBCommand().onecmd(Cmd))
+        test_dict = storage.all()["User.{}".format(UId)]
+        self.assertEqual("ojukwu", test_dict.__dict__["name"])
+
+        with patch("sys.stdout", new=StringIO()) as output:
+            HBNBCommand().onecmd("create City")
+            CityId = output.getvalue().strip()
+        Cmd = "City.update({}, name, 'abj')".format(CityId)
+        self.assertFalse(HBNBCommand().onecmd(Cmd))
+        test_dict = storage.all()["City.{}".format(CityId)]
+        self.assertEqual("abj", test_dict.__dict__["name"])
+
+        with patch("sys.stdout", new=StringIO()) as output:
+            HBNBCommand().onecmd("create Amenity")
+            AmdId = output.getvalue().strip()
+        Cmd = "Amenity.update({}, asset, house)".format(AmdId)
+        self.assertFalse(HBNBCommand().onecmd(Cmd))
+        test_dict = storage.all()["Amenity.{}".format(AmdId)]
+        self.assertEqual("house", test_dict.__dict__["asset"])
+
+    def test_update_valid_int_attr_space_notation(self):
+        with patch("sys.stdout", new=StringIO()) as output:
+            HBNBCommand().onecmd("create Place")
+            testId = output.getvalue().strip()
+        testCmd = "update Place {} max_guest 98".format(testId)
+        self.assertFalse(HBNBCommand().onecmd(testCmd))
+        test_dict = storage.all()["Place.{}".format(testId)].__dict__
+        self.assertEqual(98, test_dict["max_guest"])
+
+    def test_update_valid_int_attr_dot_notation(self):
+        with patch("sys.stdout", new=StringIO()) as output:
+            HBNBCommand().onecmd("create Place")
+            tId = output.getvalue().strip()
+        testCmd = "Place.update({}, max_guest, 98)".format(tId)
+        self.assertFalse(HBNBCommand().onecmd(testCmd))
+        test_dict = storage.all()["Place.{}".format(tId)].__dict__
+        self.assertEqual(98, test_dict["max_guest"])
+
+    def test_update_valid_float_attr_space_notation(self):
+        with patch("sys.stdout", new=StringIO()) as output:
+            HBNBCommand().onecmd("create Place")
+            testId = output.getvalue().strip()
+        testCmd = "update Place {} latitude 7.2".format(testId)
+        self.assertFalse(HBNBCommand().onecmd(testCmd))
+        test_dict = storage.all()["Place.{}".format(testId)].__dict__
+        self.assertEqual(7.2, test_dict["latitude"])
+
+
 
 if __name__ == '__main__':
     unittest.main()
