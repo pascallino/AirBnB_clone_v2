@@ -11,9 +11,11 @@ import os
 import unittest
 from models.base_model import BaseModel
 from datetime import datetime
+from models.engine.file_storage import FileStorage
 import time
 import uuid
 import models
+import json
 
 
 class TestBaseModel_Init(unittest.TestCase):
@@ -117,6 +119,7 @@ class TestBaseModel_Init(unittest.TestCase):
         with self.assertRaises(TypeError):
             BaseModel(id=None, created_at=None, updated_at=None)
 
+
 class TestBaseModel_to_dict(unittest.TestCase):
     """Unittests for to_dict method from BaseModel class."""
 
@@ -166,6 +169,92 @@ class TestBaseModel_to_dict(unittest.TestCase):
         bmodel_dict = bmodel.to_dict()
         self.assertEqual(str, type(bmodel_dict["created_at"]))
         self.assertEqual(str, type(bmodel_dict["updated_at"]))
+
+
+class TestBaseModel_save(unittest.TestCase):
+    """Unittests for save method from BaseModel class."""
+    @classmethod
+    def setUp(self):
+        try:
+            os.rename("file.json", "pascal")
+        except IOError:
+            pass
+
+    @classmethod
+    def tearDown(self):
+        try:
+            os.remove("file.json")
+        except IOError:
+            pass
+        try:
+            os.rename("pascal", "file.json")
+        except IOError:
+            pass
+
+    def clearStorage(self):
+        """ clear the file contents """
+        FileStorage._FileStorage__objects = {}
+        try:
+            os.remove("file.json")
+        except IOError:
+            pass
+        try:
+            os.rename("pascal", "file.json")
+        except IOError:
+            pass
+
+    def test_save_if_object_in_file(self):
+        """test_save_if_object_in_<file.json>"""
+        bmodel = BaseModel()
+        bmodel.save()
+        bmodelid = "BaseModel." + bmodel.id
+        with open("file.json", "r") as file:
+            self.assertIn(bmodelid, file.read())
+
+    def test_save_calls_storage_dot_save_method_in_fileStorage(self):
+        """test_save_calls_storage_dot_save_method_in_fileStorage"""
+        self.clearStorage()
+        bmodel = BaseModel()
+        bmodel.save()
+        bmodelkey = f"{type(bmodel).__name__}.{bmodel.id}"
+        filecontent = {bmodelkey: bmodel.to_dict()}
+        self.assertTrue(os.path.isfile(FileStorage._FileStorage__file_path))
+        with open(FileStorage._FileStorage__file_path,
+                  "r", encoding="utf-8") as file:
+            self.assertEqual(len(file.read()), len(json.dumps(filecontent)))
+            file.seek(0)
+            self.assertEqual(json.load(file), filecontent)
+
+    def test_save_no_args(self):
+        """Tests save() with no arguments."""
+        self.clearStorage()
+        with self.assertRaises(TypeError) as e:
+            BaseModel.save()
+        msg = "save() missing 1 required positional argument: 'self'"
+        self.assertEqual(str(e.exception), msg)
+
+    def test_save_for_many_args(self):
+        """Tests save() with too many arguments."""
+        self.clearStorage()
+        with self.assertRaises(TypeError) as e:
+            BaseModel.save(self, 98)
+        msg = "save() takes 1 positional argument but 2 were given"
+        self.assertEqual(str(e.exception), msg)
+
+
+class TestBaseModel___str__(unittest.TestCase):
+    """ test string representation for bm"""
+    def test_str_representation(self):
+        dt = datetime.today()
+        dt_repr = repr(dt)
+        bm = BaseModel()
+        bm.id = "123456"
+        bm.created_at = bm.updated_at = dt
+        bmstr = bm.__str__()
+        self.assertIn("[BaseModel] (123456)", bmstr)
+        self.assertIn("'id': '123456'", bmstr)
+        self.assertIn("'created_at': " + dt_repr, bmstr)
+        self.assertIn("'updated_at': " + dt_repr, bmstr)
 
 
 if __name__ == '__main__':
