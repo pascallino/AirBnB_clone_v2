@@ -214,5 +214,30 @@ class TestFileStorage_all(unittest.TestCase):
         self.assertIn("Review." + review.id, getllobjs)
 
 
+class TestFileStorage_attributes(unittest.TestCase):
+    """ Test all method for file storage"""
+
+    def test_FileStorage_with_none_parameters(self):
+        """ test_FileStorage_with_none_parameters"""
+        with self.assertRaises(TypeError):
+            FileStorage(None)
+
+    def test_FileStorage_type(self):
+        """ test FileStorage type """
+        self.assertEqual(type(FileStorage()), FileStorage)
+
+    def test_FileStorage_private_attributes_type(self):
+        """ test_FileStorage_private_attributes_type """
+        self.assertEqual(str, type(FileStorage._FileStorage__file_path))
+
+    def testFileStorage_private_dict_type(self):
+        """testFileStorage_private_dict_type"""
+        self.assertEqual(dict, type(FileStorage._FileStorage__objects))
+
+    def test_storage_type(self):
+        """ test storage type"""
+        self.assertEqual(type(models.storage), FileStorage)
+
+
 if __name__ == "__main__":
     unittest.main()
