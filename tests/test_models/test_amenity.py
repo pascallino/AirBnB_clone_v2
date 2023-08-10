@@ -3,7 +3,7 @@
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 from models.amenity import Amenity
-import datetime
+from datetime import datetime
 import json
 import os
 from time import sleep
@@ -78,6 +78,90 @@ class TestAmenity_to_dict(unittest.TestCase):
         """ check if  test passes the  missing __class__ in __dict__"""
         amenity = Amenity()
         self.assertNotEqual(amenity.to_dict(), amenity.__dict__)
+
+    def test_if_2_dict_kv_are_equal(self):
+        """ test_if_2_dict_kv_are_equal """
+        date_now = datetime.today()
+        amenity = Amenity()
+        amenity.id = "886600"
+        amenity.created_at = date_now
+        amenity.updated_at = date_now
+        dict_amenity = {
+            '__class__': 'Amenity',
+            'id': '886600',
+            'created_at': date_now.isoformat(),
+            'updated_at': date_now.isoformat(),
+        }
+        self.assertDictEqual(dict_amenity, amenity.to_dict())
+
+    def test_dict_attributes_if_equal(self):
+        """test_dict_attributes_if_equal"""
+        amenity = Amenity()
+        amenity.attr_name = "Pascal"
+        amenity.age = 67
+        self.assertEqual("Pascal", amenity.attr_name)
+        self.assertIn("attr_name", amenity.to_dict())
+
+
+class TestAmenity___str__(unittest.TestCase):
+    """ test str method if same """
+    def test_str(self):
+        """ test str representation """
+        amenity = Amenity()
+        s = f"[{amenity.__class__.__name__}] ({amenity.id}) {amenity.__dict__}"
+        self.assertEqual(amenity.__str__(), s)
+
+
+class TestAmenity__init__(unittest.TestCase):
+    """ test init method for Amenity"""
+    def test_Amenity_with_none_parameters(self):
+        """ test_Amenity_with_none_parameters"""
+        amenity = Amenity(None)
+        self.assertNotIn(None, amenity.__dict__.values())
+
+    def test_name_is_public_class_attribute(self):
+        """ check if attr type is same as dict as well"""
+        amenity = Amenity()
+        self.assertIn("name", dir(Amenity()))
+        self.assertEqual(str, type(Amenity.name))
+        self.assertNotIn("name", amenity.__dict__)
+
+    def test_Amenity_type(self):
+        """ test Amenity type """
+        self.assertEqual(type(Amenity()), Amenity)
+
+    def test_Amenity_public_attributes_type(self):
+        """ test_public_public_attributes_type """
+        self.assertEqual(str, type(Amenity.name))
+
+    def test_id_if_typeis_str(self):
+        """ test_id_if_typeis_str"""
+        self.assertEqual(str, type(Amenity().id))
+
+    def test_created_at_if_typeis_datetime(self):
+        """ test_created_at_if_type_datetime """
+        self.assertEqual(datetime, type(Amenity().created_at))
+
+    def test_updated_at_if_typeis_datetime(self):
+        """ test_updated_at_if_type_datetime """
+        self.assertEqual(datetime, type(Amenity().updated_at))
+
+    def test_dir(self):
+        """ test dir and name attr"""
+        amenity = Amenity()
+        amenity.name = "car"
+        self.assertIn("name", dir(Amenity()))
+        self.assertIn("name", amenity.__dict__)
+
+    def test_two_amenities_id_if_they_are_not_same(self):
+        """ test_two_amenities_id_if_they_are_not_same """
+        amd = Amenity()
+        amd_1 = Amenity()
+        self.assertNotEqual(amd.id, amd_1.id)
+
+    def test_storage_type(self):
+        """ test storage type"""
+        self.assertEqual(type(models.storage), FileStorage)
 
 
 if __name__ == "__main__":
