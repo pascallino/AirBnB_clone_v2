@@ -35,9 +35,11 @@ class TestAmenity_save(unittest.TestCase):
         """ test_save_for_amenity_object """
         amenity = Amenity()
         amenity.save()
+        objs = models.storage.all()
         Amkey = "Amenity." + amenity.id
         with open("file.json", "r") as file:
             self.assertIn(Amkey, file.read())
+            self.assertIn(Amkey, objs)
 
     def test_save_and_pass_argument(self):
         """ test_save_and_pass_argument """
@@ -84,11 +86,13 @@ class TestAmenity_to_dict(unittest.TestCase):
         date_now = datetime.today()
         amenity = Amenity()
         amenity.id = "886600"
+        amenity.name = "Home appliances"
         amenity.created_at = date_now
         amenity.updated_at = date_now
         dict_amenity = {
             '__class__': 'Amenity',
             'id': '886600',
+            'name': 'Home appliances',
             'created_at': date_now.isoformat(),
             'updated_at': date_now.isoformat(),
         }
