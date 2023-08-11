@@ -63,7 +63,9 @@ class TestAmenity_save(unittest.TestCase):
 class TestAmenity_to_dict(unittest.TestCase):
     """class to test to_dict method for Amenity class """
     def test_to_dict_keys_if_same(self):
-        """  """
+        """  test_to_dict_keys_if_same """
+        amenity = Amenity()
+        self.assertIn("created_at", amenity.to_dict())
 
     def test_to_dict_type(self):
         """ test_to_dict_type """
@@ -149,6 +151,11 @@ class TestAmenity__init__(unittest.TestCase):
     def test_updated_at_if_typeis_datetime(self):
         """ test_updated_at_if_type_datetime """
         self.assertEqual(datetime, type(Amenity().updated_at))
+
+    def test_superclass_of_amenity(self):
+        """ test_superclass_of_user """
+        amenity = Amenity()
+        self.assertTrue(issubclass(type(amenity), BaseModel))
 
     def test_dir(self):
         """ test dir and name attr"""
