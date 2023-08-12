@@ -613,10 +613,12 @@ class TestHBNBCommand_all(unittest.TestCase):
 
 
 class TestHBNBCommand_count(unittest.TestCase):
-    """Unittests for testing count method of HBNB comand interpreter."""
+    """Unittest to count if the objects saved are matching with
+    whats in the json file"""
 
     @classmethod
     def setUp(self):
+        """ set up the enviromants """
         try:
             os.rename("file.json", "tmp")
         except IOError:
@@ -625,6 +627,7 @@ class TestHBNBCommand_count(unittest.TestCase):
 
     @classmethod
     def tearDown(self):
+        """ teardown the enviroments """
         try:
             os.remove("file.json")
         except IOError:
@@ -634,12 +637,14 @@ class TestHBNBCommand_count(unittest.TestCase):
         except IOError:
             pass
 
-    def test_count_invalid_class(self):
+    def test_count_wrong_class(self):
+        """ count from an invaluid calss """
         with patch("sys.stdout", new=StringIO()) as output:
-            self.assertFalse(HBNBCommand().onecmd("MyModel.count()"))
+            self.assertFalse(HBNBCommand().onecmd("pascal.count()"))
             self.assertEqual("0", output.getvalue().strip())
 
-    def test_count_object(self):
+    def test_count_specific_object(self):
+        """ count specific objects if same"""
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create BaseModel"))
         with patch("sys.stdout", new=StringIO()) as output:
@@ -859,6 +864,13 @@ class TestHBNBCommand_update(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd("create Place"))
             placeId = output.getvalue().strip()
             Cmd = "Place.update({})".format(placeId)
+        with patch("sys.stdout", new=StringIO()) as output:
+            self.assertFalse(HBNBCommand().onecmd(Cmd))
+            self.assertEqual(errormsg, output.getvalue().strip())
+        with patch("sys.stdout", new=StringIO()) as output:
+            self.assertFalse(HBNBCommand().onecmd("create Review"))
+            placeId = output.getvalue().strip()
+            Cmd = "Review.update({})".format(placeId)
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd(Cmd))
             self.assertEqual(errormsg, output.getvalue().strip())
