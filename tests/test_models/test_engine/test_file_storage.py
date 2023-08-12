@@ -220,7 +220,12 @@ class TestFileStorage_all(unittest.TestCase):
         self.assertIn("Review." + review.id, getllobjs)
 
 
-class TestFileStorage_instantiation(unittest.TestCase):
+class TestFileStorage__file_path(unittest.TestCase):
+    """ Test __file_path if its correct"""
+    self.assertEqual("file.json", FileStorage__file_path)
+
+
+class TestFileStorage__init__(unittest.TestCase):
     """ Test all method for file storage"""
 
     def test_FileStorage_with_none_parameters(self):
