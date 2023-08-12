@@ -27,7 +27,8 @@ class BaseModel:
 
     def __str__(self):
         """ string representation of the BaseModel intance """
-        clName = self.__class__.__name__
+        # clName = self.__class__.__name__
+        clName = type(self).__name__
         str = f"[{clName}] ({self.id}) {self.__dict__}"
         return str
 
