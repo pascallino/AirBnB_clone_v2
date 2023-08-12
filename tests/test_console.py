@@ -1124,6 +1124,14 @@ class TestHBNBCommand_update(unittest.TestCase):
         test_dict = storage.all()["Amenity.{}".format(AmdId)]
         self.assertEqual("house", test_dict.__dict__["asset"])
 
+        with patch("sys.stdout", new=StringIO()) as output:
+            HBNBCommand().onecmd("create Review")
+            AmdId = output.getvalue().strip()
+        Cmd = "Review.update({}, text, house)".format(AmdId)
+        self.assertFalse(HBNBCommand().onecmd(Cmd))
+        test_dict = storage.all()["Review.{}".format(AmdId)]
+        self.assertEqual("house", test_dict.__dict__["text"])
+
     def test_update_dictionary_key_and_value_pair(self):
         """test_update_dictionary_key_and_value_pair"""
         with patch("sys.stdout", new=StringIO()) as output:
