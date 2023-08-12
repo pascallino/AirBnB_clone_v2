@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ base model super class to be used
 by allsub classes """
+
 from uuid import uuid4
 from datetime import datetime
 import models
