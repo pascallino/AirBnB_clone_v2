@@ -1,10 +1,5 @@
 #!/usr/bin/python3
-""" unit test for Based Model
-
-unittest class:
-        Base Model Class
-"""
-
+""" unit test for Based Modelunittest class:Base Model Class"""
 from time import sleep
 import sys
 import os
