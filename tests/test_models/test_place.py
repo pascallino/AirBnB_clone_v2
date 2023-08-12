@@ -1,8 +1,8 @@
 #!/usr/bin/python3
-""" unittest for City class """
+""" unittest for Place class """
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
-from models.review import Review
+from models.place import Place
 from datetime import datetime
 import json
 import os
@@ -11,8 +11,8 @@ import models
 import unittest
 
 
-class TestReview_save(unittest.TestCase):
-    """ test save method for Review class """
+class TestPlace_save(unittest.TestCase):
+    """ test save method for Place class """
     @classmethod
     def setUp(self):
         """setUp the enviroment for testing"""
@@ -33,37 +33,37 @@ class TestReview_save(unittest.TestCase):
         except IOError:
             pass
 
-    def test_save_for_review_object(self):
-        """ test_save_for_review_object """
-        review = Review()
-        review.save()
-        Rkey = "Review." + review.id
+    def test_save_for_place_object(self):
+        """ test_save_for_place_object """
+        place = Place()
+        place.save()
+        Pkey = "Place." + place.id
         objs = models.storage.all()
         with open("file.json", "r") as file:
-            self.assertIn(Rkey, file.read())
-            self.assertIn(Rkey, objs)
+            self.assertIn(Pkey, file.read())
+            self.assertIn(Pkey, objs)
 
     def test_save_and_pass_argument(self):
         """ test_save_and_pass_argument """
-        review = Review()
+        place = Place()
         with self.assertRaises(TypeError):
-            review.save(None)
+            place.save(None)
 
     def test_save_on_two_calls(self):
         """ test save for two different calls """
-        review = Review()
+        place = Place()
         sleep(0.1)
-        updated_at_1 = review.updated_at
-        review.save()
-        updated_at_2 = review.updated_at
+        updated_at_1 = place.updated_at
+        place.save()
+        updated_at_2 = place.updated_at
         self.assertLess(updated_at_1, updated_at_2)
         sleep(0.1)
-        review.save()
-        self.assertLess(updated_at_2, review.updated_at)
+        place.save()
+        self.assertLess(updated_at_2, place.updated_at)
 
 
-class TestReview_to_dict(unittest.TestCase):
-    """class to test to_dict method for Review class """
+class TestPlace_to_dict(unittest.TestCase):
+    """class to test to_dict method for Place class """
     @classmethod
     def setUp(self):
         """ setUp the enviroment for testing"""
@@ -86,56 +86,70 @@ class TestReview_to_dict(unittest.TestCase):
 
     def test_to_dict_keys_if_same(self):
         """  test_to_dict_keys_if_same """
-        review = Review()
-        self.assertNotEqual(review.__dict__, review.to_dict())
+        place = Place()
+        self.assertNotEqual(place.__dict__, place.to_dict())
 
     def test_to_dict_type(self):
         """ test_to_dict_type """
-        review = Review()
-        self.assertTrue(dict, type(review.to_dict()))
+        place = Place()
+        self.assertTrue(dict, type(place.to_dict()))
 
     def test_to_dict_with_None_arg(self):
         """ test_to_dict_with_None_arg """
-        review = Review()
+        place = Place()
         with self.assertRaises(TypeError):
-            review.to_dict(None)
+            place.to_dict(None)
 
     def test_if_to_dict_kv_is_same_with__dict__(self):
         """ check if  test passes the  missing __class__ in __dict__"""
-        review = Review()
-        self.assertNotEqual(review.to_dict(), review.__dict__)
+        place = Place()
+        self.assertNotEqual(place.to_dict(), place.__dict__)
 
     def test_if_2_dict_kv_are_equal(self):
         """ test_if_2_dict_kv_are_equal """
         date_now = datetime.today()
-        review = Review()
-        review.id = "89755"
-        review.place_id = "454545"
-        review.user_id = "8267"
-        review.text = "i am a student of ALX"
-        review.created_at = date_now
-        review.updated_at = date_now
-        dict_review = {
-            '__class__': 'Review',
+        place = Place()
+        place.id = "89755"
+        place.city_id = "092"
+        place.user_id = "1234"
+        place.name = "Alx"
+        place.number_rooms = 10
+        place.number_bathrooms = 45
+        place.max_guest = 18
+        place.price_by_night = 150
+        place.latitude = 2.4
+        place.longitude = 1.3
+        place.description = "i am a student of ALX"
+        place.created_at = date_now
+        place.updated_at = date_now
+        dict_place = {
+            '__class__': 'Place',
             'id': '89755',
-            'place_id': '454545',
-            'text': 'i am a student of ALX',
+            'name': 'Alx',
+            'number_rooms': 10,
+            'number_bathrooms': 45,
+            'max_guest': 18,
+            'price_by_night': 150,
+            'latitude': 2.4,
+            'longitude': 1.3,
+            'description': 'i am a student of ALX',
             'created_at': date_now.isoformat(),
             'updated_at': date_now.isoformat(),
-            'user_id': '8267'
+            'city_id': '092',
+            'user_id': '1234'
         }
-        self.assertDictEqual(dict_review, review.to_dict())
+        self.assertDictEqual(dict_place, place.to_dict())
 
     def test_dict_attributes_if_equal(self):
         """test_dict_attributes_if_equal"""
-        review = Review()
-        review.attr_name = "Pascal"
-        review.age = 67
-        self.assertEqual("Pascal", review.attr_name)
-        self.assertIn("attr_name", review.to_dict())
+        place = Place()
+        place.attr_name = "Pascal"
+        place.age = 67
+        self.assertEqual("Pascal", place.attr_name)
+        self.assertIn("attr_name", place.to_dict())
 
 
-class TestReview___str__(unittest.TestCase):
+class TestPlace___str__(unittest.TestCase):
     @classmethod
     def setUp(self):
         """ setup the enviroment for testing"""
@@ -159,13 +173,13 @@ class TestReview___str__(unittest.TestCase):
     """ test str method if same """
     def test_str(self):
         """ test str representation """
-        review = Review()
-        s = f"[{review.__class__.__name__}] ({review.id}) {review.__dict__}"
-        self.assertEqual(review.__str__(), s)
+        place = Place()
+        s = f"[{place.__class__.__name__}] ({place.id}) {place.__dict__}"
+        self.assertEqual(place.__str__(), s)
 
 
-class TestReview__init__(unittest.TestCase):
-    """ test init method for Review"""
+class TestPlace__init__(unittest.TestCase):
+    """ test init method for Place"""
     @classmethod
     def setUp(self):
         """ setup the enviroment for testing"""
@@ -186,60 +200,60 @@ class TestReview__init__(unittest.TestCase):
         except IOError:
             pass
 
-    def test_review_with_none_parameters(self):
-        """ test_review_with_none_parameters"""
-        review = Review(None)
-        self.assertNotIn(None, review.__dict__.values())
+    def test_place_with_none_parameters(self):
+        """ test_place_with_none_parameters"""
+        place = Place(None)
+        self.assertNotIn(None, place.__dict__.values())
 
-    def test_superclass_of_review(self):
-        """ test_superclass_of_review """
-        review = Review()
-        self.assertTrue(issubclass(type(review), BaseModel))
+    def test_superclass_of_place(self):
+        """ test_superclass_of_place """
+        place = Place()
+        self.assertTrue(issubclass(type(place), BaseModel))
 
     def test_name_is_public_class_attribute(self):
         """ check if attr type is same as dict as well"""
-        review = Review()
-        self.assertIn("user_id", dir(Review()))
-        self.assertEqual(str, type(Review.place_id))
-        self.assertEqual(str, type(Review.user_id))
-        self.assertNotIn("user_id", review.__dict__)
+        place = Place()
+        self.assertIn("max_guest", dir(Place()))
+        self.assertEqual(str, type(Place.city_id))
+        self.assertEqual(str, type(Place.user_id))
+        self.assertNotIn("max_guest", place.__dict__)
 
-    def test_Review_type(self):
-        """ test Review type """
-        self.assertEqual(type(Review()), Review)
+    def test_place_type(self):
+        """ test Place type to be sure its same """
+        self.assertEqual(type(Place()), Place)
 
-    def test_Review_public_attributes_type(self):
+    def test_Place_public_attributes_type(self):
         """ test_public_public_attributes_type """
-        self.assertEqual(str, type(Review.user_id))
+        self.assertEqual(str, type(Place.user_id))
 
     def test_id_if_typeis_str(self):
         """ test_id_if_typeis_str"""
-        self.assertEqual(str, type(Review().user_id))
+        self.assertEqual(str, type(Place().user_id))
 
     def test_created_at_if_typeis_datetime(self):
         """ test_created_at_if_type_datetime """
-        self.assertEqual(datetime, type(Review().created_at))
+        self.assertEqual(datetime, type(Place().created_at))
 
     def test_updated_at_if_typeis_datetime(self):
         """ test_updated_at_if_type_datetime """
-        self.assertEqual(datetime, type(Review().updated_at))
+        self.assertEqual(datetime, type(Place().updated_at))
 
     def test_dir(self):
         """ test dir and name attr"""
-        review = Review()
-        review.text = "africa"
-        self.assertIn("text", dir(Review()))
-        self.assertIn("text", review.__dict__)
+        place = Place()
+        place.description = "africa"
+        self.assertIn("description", dir(Place()))
+        self.assertIn("description", place.__dict__)
 
-    def test_two_review_id_if_they_are_not_same(self):
-        """ test_two_review_id_if_they_are_not_same """
-        review = Review()
-        review_1 = Review()
-        self.assertNotEqual(review.id, review_1.id)
+    def test_two_Place_id_if_they_are_not_same(self):
+        """ test_two_Place_id_if_they_are_not_same """
+        place = Place()
+        place_1 = Place()
+        self.assertNotEqual(place.id, place_1.id)
 
-    def test_Review_type(self):
-        """ test Review type"""
-        self.assertEqual(type(Review()), Review)
+    def test_Place_type(self):
+        """ test Place type to see if they are they same"""
+        self.assertEqual(type(Place()), Place)
 
 
 if __name__ == "__main__":
