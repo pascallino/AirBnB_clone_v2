@@ -220,7 +220,7 @@ class TestFileStorage_all(unittest.TestCase):
         self.assertIn("Review." + review.id, getllobjs)
 
 
-class TestFileStorage_new(unittest.TestCase):
+class TestFileStorage__instantiation(unittest.TestCase):
     """ Test all method for file storage"""
 
     def test_FileStorage_with_none_parameters(self):
