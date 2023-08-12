@@ -40,6 +40,8 @@ class FileStorage:
     def reload(self):
         """ deserializes back to python object
         do nothing if the file doesnt exist"""
+        # if not os.path.isfile(FileStorage.__file_path):
+        # return
         with open(FileStorage.__file_path, "r", encoding="utf-8") as file:
             pyobj = json.load(file)
             for cl in pyobj.values():
