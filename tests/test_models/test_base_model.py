@@ -175,6 +175,7 @@ class TestBaseModel_save(unittest.TestCase):
     """Unittests for save method from BaseModel class."""
     @classmethod
     def setUp(self):
+        """ setup the enviroments """
         try:
             os.rename("file.json", "pascal")
         except IOError:
@@ -182,6 +183,7 @@ class TestBaseModel_save(unittest.TestCase):
 
     @classmethod
     def tearDown(self):
+        """ teardown the enviroments """
         try:
             os.remove("file.json")
         except IOError:
