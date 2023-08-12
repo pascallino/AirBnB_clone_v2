@@ -204,7 +204,7 @@ class TestCity__init__(unittest.TestCase):
 
     def test_City_type(self):
         """ test City type """
-        self.assertEqual(type(City()), User)
+        self.assertEqual(type(City()), City)
 
     def test_City_public_attributes_type(self):
         """ test_public_public_attributes_type """
