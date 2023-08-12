@@ -12,7 +12,7 @@ import unittest
 
 
 class TestUser_save(unittest.TestCase):
-    """ test save method for Amenity class """
+    """ test save method for User class """
     @classmethod
     def setUp(self):
         """setUp the enviroment for testing"""
@@ -34,7 +34,7 @@ class TestUser_save(unittest.TestCase):
             pass
 
     def test_save_for_user_object(self):
-        """ test_save_for_amenity_object """
+        """ test_save_for_user_object """
         user = User()
         user.save()
         Ukey = "User." + user.id
@@ -191,7 +191,7 @@ class TestUser__init__(unittest.TestCase):
             pass
 
     def test_user_with_none_parameters(self):
-        """ test_Amenity_with_none_parameters"""
+        """ test_User_with_none_parameters"""
         user = User(None)
         self.assertNotIn(None, user.__dict__.values())
 
@@ -211,7 +211,7 @@ class TestUser__init__(unittest.TestCase):
         self.assertNotIn("first_name", user.__dict__)
 
     def test_User_type(self):
-        """ test Amenity type """
+        """ test User type """
         self.assertEqual(type(User()), User)
 
     def test_User_public_attributes_type(self):

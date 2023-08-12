@@ -200,11 +200,11 @@ class TestCity__init__(unittest.TestCase):
         self.assertIn("name", dir(City()))
         self.assertEqual(str, type(City.state_id))
         self.assertEqual(str, type(City.name))
-        self.assertNotIn("stateid", city.__dict__)
+        self.assertNotIn("state_id", city.__dict__)
 
     def test_City_type(self):
         """ test City type """
-        self.assertEqual(type(City()), City)
+        self.assertEqual(type(City()), User)
 
     def test_City_public_attributes_type(self):
         """ test_public_public_attributes_type """
@@ -225,7 +225,7 @@ class TestCity__init__(unittest.TestCase):
     def test_dir(self):
         """ test dir and name attr"""
         city = City()
-        city.name = "AFR"
+        city.name = "africa"
         self.assertIn("name", dir(City()))
         self.assertIn("name", city.__dict__)
 
@@ -235,7 +235,7 @@ class TestCity__init__(unittest.TestCase):
         city_1 = City()
         self.assertNotEqual(city.id, city_1.id)
 
-    def test_User_type(self):
+    def test_City_type(self):
         """ test City type"""
         self.assertEqual(type(City()), City)
 
