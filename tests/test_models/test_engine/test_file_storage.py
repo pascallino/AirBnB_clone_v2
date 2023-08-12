@@ -20,6 +20,7 @@ class TestFileStorage_save(unittest.TestCase):
     """ test save method in Filestorage class """
     @classmethod
     def setUp(self):
+        """ setup enviroments """
         try:
             os.rename("file.json", "pascal")
         except IOError:
@@ -27,6 +28,7 @@ class TestFileStorage_save(unittest.TestCase):
 
     @classmethod
     def tearDown(self):
+        """ tear down enviroments """
         try:
             os.remove("file.json")
         except IOError:
@@ -85,6 +87,7 @@ class TestFileStorage_reload(unittest.TestCase):
     """ test reload method in Filestorage class """
     @classmethod
     def setUp(self):
+        """ set up enviroments """
         try:
             os.rename("file.json", "pascal")
         except IOError:
@@ -92,6 +95,7 @@ class TestFileStorage_reload(unittest.TestCase):
 
     @classmethod
     def tearDown(self):
+        """ tear down enviroments """
         try:
             os.remove("file.json")
         except IOError:
@@ -150,6 +154,7 @@ class TestFileStorage_all(unittest.TestCase):
     """ Test all method for file storage"""
     @classmethod
     def setUp(self):
+        """ setup enviroments """
         try:
             os.rename("file.json", "pascal")
         except IOError:
@@ -157,6 +162,7 @@ class TestFileStorage_all(unittest.TestCase):
 
     @classmethod
     def tearDown(self):
+        """ tear down enviroments"""
         try:
             os.remove("file.json")
         except IOError:
@@ -214,7 +220,7 @@ class TestFileStorage_all(unittest.TestCase):
         self.assertIn("Review." + review.id, getllobjs)
 
 
-class TestFileStorage_attributes(unittest.TestCase):
+class TestFileStorage_new(unittest.TestCase):
     """ Test all method for file storage"""
 
     def test_FileStorage_with_none_parameters(self):
