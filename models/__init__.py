@@ -1,4 +1,4 @@
-#!/usr/env/python3
+#!/usr/bin/python3
 """ initialize the filestorage class to always
 create an instance of its class that will be
 throughout the application """

@@ -21,13 +21,13 @@ class FileStorage:
 
     def all(self):
         """ returns the dictionary objects using json.load """
-        return self.__objects
+        return FileStorage.__objects
 
     def new(self, obj):
         """ sets in object with key classname.id """
         clName = obj.__class__.__name__
         k = f"{clName}.{obj.id}"
-        self.__objects[k] = obj
+        FileStorage.__objects[k] = obj
 
     def save(self):
         """ serializes the object into the json file """
