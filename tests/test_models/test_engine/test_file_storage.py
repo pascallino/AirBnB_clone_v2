@@ -222,7 +222,9 @@ class TestFileStorage_all(unittest.TestCase):
 
 class TestFileStorage__file_path(unittest.TestCase):
     """ Test __file_path if its correct"""
-    self.assertEqual("file.json", FileStorage__file_path)
+    def FileStorage__file_path(self):
+        """ Test __file_path if its correct"""
+        self.assertEqual("file.json", FileStorage__file_path)
 
 
 class TestFileStorage__init__(unittest.TestCase):
