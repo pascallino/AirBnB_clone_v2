@@ -1,4 +1,4 @@
-#!/usr/env/python3
+#!/usr/bin/python3
 """ The file storage engine where the file will be stored """
 import sys
 import os
