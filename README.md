@@ -142,3 +142,7 @@ python3 -c 'print(__import__("my_module").MyClass.my_function.__doc__)'
 * or: ```python3 -m unittest tests/test_models/test_base.py```
 
 ### run test in interactive mode
+
+```bash
+echo "python3 -m unittest discover tests" | bash
+```
