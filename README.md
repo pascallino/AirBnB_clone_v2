@@ -77,3 +77,6 @@ The console will perform the following tasks:
 * retrive an object from a file
 * do operations on objects
 * destroy an object
+
+### Storage
+
