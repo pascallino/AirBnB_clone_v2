@@ -109,3 +109,7 @@ change to the `AirBnb` directory and run the command:
 All the test are defined in the `tests` folder.
 
 * Modules:
+
+```python
+python3 -c 'print(__import__("my_module").__doc__)'
+```
