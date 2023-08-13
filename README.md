@@ -88,3 +88,4 @@ All the classes are handled by the `Storage` engine in the `FileStorage` Class.
  <!-- Style guidelines -->
 * Style guidelines:
   * [pycodestyle (version 2.7.*)](https://pypi.org/project/pycodestyle/)
+  * [PEP8](https://pep8.org/)
