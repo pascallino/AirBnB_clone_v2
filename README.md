@@ -105,3 +105,5 @@ change to the `AirBnb` directory and run the command:
 ```
 
 ## 0x04 Testing
+
+All the test are defined in the `tests` folder.
