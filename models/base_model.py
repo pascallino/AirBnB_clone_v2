@@ -12,10 +12,6 @@ class BaseModel:
 
     def __init__(self, *args, **kwargs):
         """ initializes the class attributes*arg is an unused variable"""
-        if args is not None and len(args) > 0:
-            pass
-        else:
-            BaseModel.__init__(self, args, kwargs)
         str_fdate = "%Y-%m-%dT%H:%M:%S.%f"
         if kwargs is not None and kwargs != {}:
             for k, v in kwargs.items():
