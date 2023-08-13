@@ -79,4 +79,5 @@ The console will perform the following tasks:
 * destroy an object
 
 ### Storage
+All the classes are handled by the `Storage` engine in the `FileStorage` Class.
 
