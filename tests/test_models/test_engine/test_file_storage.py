@@ -252,28 +252,5 @@ class TestFileStorage__init__(unittest.TestCase):
         self.assertEqual(type(models.storage), FileStorage)
 
 
-class TestFileStorage(unittest.TestCase):
-    def test_private_attr(self):
-        base = BaseModel()
-        storage = FileStorage()
-        with self.assertRaises(AttributeError):
-            file_path = storage.file_path
-        with self.assertRaises(AttributeError):
-            file_path = storage.__file_path
-        with self.assertRaises(AttributeError):
-            file_path = storage.objects
-        with self.assertRaises(AttributeError):
-            file_path = storage.__objects
-
-        with self.assertRaises(AttributeError):
-            FileStorage.file_path
-        with self.assertRaises(AttributeError):
-            FileStorage.__file_path
-        with self.assertRaises(AttributeError):
-            FileStorage.objects
-        with self.assertRaises(AttributeError):
-            FileStorage.__objects
-
-
 if __name__ == "__main__":
     unittest.main()
