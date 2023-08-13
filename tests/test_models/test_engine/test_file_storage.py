@@ -10,6 +10,7 @@ from models.amenity import Amenity
 from models.review import Review
 from models.engine.file_storage import FileStorage
 import datetime
+from models.__init__ import storage
 import json
 import os
 import models
@@ -134,7 +135,7 @@ class TestFileStorage_reload(unittest.TestCase):
         models.storage.new(amenity)
         models.storage.new(review)
         models.storage.save()
-        models.storage.reload()
+        storage.reload()
         getllobjs = FileStorage._FileStorage__objects
         self.assertIn("BaseModel." + bmodel.id, getllobjs)
         self.assertIn("User." + user.id, getllobjs)
@@ -147,7 +148,7 @@ class TestFileStorage_reload(unittest.TestCase):
     def test_reload_bypassing_None_parameter(self):
         """ test_reload_bypassing_None_parameter """
         with self.assertRaises(TypeError):
-            models.storage.reload(None)
+            storage.reload(None)
 
 
 class TestFileStorage_all(unittest.TestCase):
