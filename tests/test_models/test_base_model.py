@@ -254,19 +254,5 @@ class TestBaseModel___str__(unittest.TestCase):
         self.assertIn("'updated_at': " + dt_repr, bmstr)
 
 
-class TestBaseModel(unittest.TestCase):
-    """
-    Test cases for the base_model
-    """
-    def test_str(self):
-        """
-        checks the string output of an instance
-        """
-        base = BaseModel()
-        self.assertEqual(base.__str__(),
-                         f"[{type(base).__name__}] \
-({base.id}) {base.__dict__}")
-
-
 if __name__ == '__main__':
     unittest.main()
