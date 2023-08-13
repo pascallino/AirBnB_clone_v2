@@ -146,3 +146,5 @@ python3 -c 'print(__import__("my_module").MyClass.my_function.__doc__)'
 ```bash
 echo "python3 -m unittest discover tests" | bash
 ```
+
+### run test in non-interactive mode
