@@ -63,7 +63,6 @@ class TestFileStorage_save(unittest.TestCase):
             models.storage.save(None)
             FileStorage(None)
 
-
     def test_save_method(self):
         """ test save function in filestorage class"""
         bmodel = BaseModel()
