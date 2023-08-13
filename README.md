@@ -103,3 +103,5 @@ change to the `AirBnb` directory and run the command:
 ```bash
  ./console.py
 ```
+
+## 0x04 Testing
