@@ -139,3 +139,4 @@ python3 -c 'print(__import__("my_module").MyClass.my_function.__doc__)'
 * Files and folders star with ```test_```
 * Organization:for ```models/base.py```, unit tests in: ```tests/test_models/test_base.py```
 * Execution command: ```python3 -m unittest discover tests```
+* or: ```python3 -m unittest tests/test_models/test_base.py```
