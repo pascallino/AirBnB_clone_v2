@@ -81,3 +81,4 @@ The console will perform the following tasks:
 ### Storage
 All the classes are handled by the `Storage` engine in the `FileStorage` Class.
 
+## 0x02 Environment
