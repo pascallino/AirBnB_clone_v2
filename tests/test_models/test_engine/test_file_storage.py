@@ -60,7 +60,7 @@ class TestFileStorage_save(unittest.TestCase):
     def test_save_bypassing_None_parameter(self):
         """ test_save_bypassing_None_parameter """
         with self.assertRaises(TypeError):
-            models.storage.save(None)
+            models.storage.save({})
             FileStorage(None)
 
     def test_save_method(self):
