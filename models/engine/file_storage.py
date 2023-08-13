@@ -30,7 +30,7 @@ class FileStorage:
         key = f"{clName}.{obj.id}"
         FileStorage.__objects[key] = obj
 
-    def save(self, obj=None):
+    def save(self):
         """ serializes the object into the json file """
         objdict = FileStorage.__objects
         with open(FileStorage.__file_path, "w", encoding="utf-8") as file:
