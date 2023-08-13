@@ -12,6 +12,8 @@ class BaseModel:
 
     def __init__(self, *args, **kwargs):
         """ initializes the class attributes*arg is an unused variable"""
+        if args is not None and len(args) > 0:
+            return
         str_fdate = "%Y-%m-%dT%H:%M:%S.%f"
         if kwargs is not None and kwargs != {}:
             for k, v in kwargs.items():
@@ -36,7 +38,7 @@ class BaseModel:
 
     def save(self):
         """ updates the instance attribute update_at """
-        self.updated_at = datetime.utcnow()
+        self.updated_at = datetime.now()
         models.storage.save()
 
     def to_dict(self):
