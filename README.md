@@ -72,3 +72,4 @@ The console is a command interpreter to manage objects abstraction between objec
 
 To see the fundamental background of the project visit the [Wiki](https://github.com/ralexrivero/AirBnB_clone/wiki).
 
+The console will perform the following tasks:
