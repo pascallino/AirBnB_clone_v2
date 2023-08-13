@@ -78,7 +78,7 @@ class TestFileStorage_save(unittest.TestCase):
         models.storage.new(city)
         models.storage.new(amenity)
         models.storage.new(review)
-        models.storage.save()
+        models.storage.save(None)
         with open("file.json", 'r') as file:
             getllobjs = file.read()
         self.assertIn("BaseModel." + bmodel.id, getllobjs)
