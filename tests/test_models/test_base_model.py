@@ -13,7 +13,7 @@ import models
 import json
 
 
-class TestBaseModel__init__(unittest.TestCase):
+class TestBaseModel_instantiation(unittest.TestCase):
     """ testing the BaseModel ___init___ method """
 
     def test_no_arg_init(self):
