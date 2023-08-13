@@ -61,4 +61,5 @@ All tests should also pass in non-interactive mode: `$ echo "python3 -m unittest
 ## 0x00.Table of contents
 * [0x01 Introduction](#0x01-Introduction)
 * [0x02 Environment](#0x02-Environment)
+* [0x03 Installation](#0x03-Installation)
 
