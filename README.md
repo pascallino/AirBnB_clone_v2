@@ -99,3 +99,7 @@ git clone https://github.com/aysuarex/AirBnB_clone.git
 ```
 
 change to the `AirBnb` directory and run the command:
+
+```bash
+ ./console.py
+```
