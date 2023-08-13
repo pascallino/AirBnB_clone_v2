@@ -66,4 +66,5 @@ All tests should also pass in non-interactive mode: `$ echo "python3 -m unittest
 * [0x05 Usage](#0x05-Usage)
 * [0x06 Authors](#0x06-Authors)
 ## 0x01 Introduction
+Team project to build a clone of [AirBnB](https://www.airbnb.com/).
 
