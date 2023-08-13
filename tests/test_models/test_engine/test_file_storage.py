@@ -21,7 +21,7 @@ class TestFileStorage_save(unittest.TestCase):
     """ test save method in Filestorage class """
     @classmethod
     def setUp(self):
-        """ setup enviroments """
+        """ setup enviroments for the unittest """
         try:
             os.rename("file.json", "pascal")
         except IOError:
@@ -29,7 +29,7 @@ class TestFileStorage_save(unittest.TestCase):
 
     @classmethod
     def tearDown(self):
-        """ tear down enviroments """
+        """ tear down enviroments  for the unittest"""
         try:
             os.remove("file.json")
         except IOError:
@@ -40,7 +40,7 @@ class TestFileStorage_save(unittest.TestCase):
             pass
 
     def clearStorage(self):
-        """ clear the file contents """
+        """ clear the file contents for the unittest"""
         FileStorage._FileStorage__objects = {}
         try:
             os.remove("file.json")
@@ -88,7 +88,7 @@ class TestFileStorage_reload(unittest.TestCase):
     """ test reload method in Filestorage class """
     @classmethod
     def setUp(self):
-        """ set up enviroments """
+        """ set up enviroments for the unit test """
         try:
             os.rename("file.json", "pascal")
         except IOError:
@@ -155,7 +155,7 @@ class TestFileStorage_all(unittest.TestCase):
     """ Test all method for file storage"""
     @classmethod
     def setUp(self):
-        """ setup enviroments """
+        """ setup enviroments for the unittest"""
         try:
             os.rename("file.json", "pascal")
         except IOError:
@@ -163,7 +163,7 @@ class TestFileStorage_all(unittest.TestCase):
 
     @classmethod
     def tearDown(self):
-        """ tear down enviroments"""
+        """ tear down enviroments for the unittest"""
         try:
             os.remove("file.json")
         except IOError:
@@ -174,7 +174,7 @@ class TestFileStorage_all(unittest.TestCase):
             pass
 
     def clearStorage(self):
-        """ clear the file contents """
+        """ clear the file contents  """
         FileStorage._FileStorage__objects = {}
         try:
             os.remove("file.json")
@@ -226,6 +226,7 @@ class TestFileStorage__file_path(unittest.TestCase):
     def FileStorage__file_path(self):
         """ Test __file_path if its correct"""
         self.assertEqual("file.json", FileStorage__file_path)
+        self.assertEqual(str, type(FileStorage._FileStorage__file_path))
 
 
 class TestFileStorage__init__(unittest.TestCase):
