@@ -125,3 +125,5 @@ python3 -c 'print(__import__("my_module").MyClass.__doc__)'
 ```python
 python3 -c 'print(__import__("my_module").my_function.__doc__)'
 ```
+
+and
