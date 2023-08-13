@@ -115,3 +115,7 @@ python3 -c 'print(__import__("my_module").__doc__)'
 ```
 
 * Classes:
+  
+```python
+python3 -c 'print(__import__("my_module").MyClass.__doc__)'
+```
