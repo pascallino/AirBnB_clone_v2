@@ -490,15 +490,33 @@ class TestHBNBCommand_destroy(unittest.TestCase):
         self.assertEqual(f.getvalue(), '** instance id missing **\n')
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("create BaseModel")
-        model_id = f.getvalue().strip()
+        bm_id = f.getvalue().strip()
         with patch('sys.stdout', new=StringIO()) as f:
-            HBNBCommand().onecmd(f"BaseModel.destroy({model_id})")
+            HBNBCommand().onecmd(f"BaseModel.destroy({bm_id})")
         self.assertEqual(f.getvalue(), '')
         with patch('sys.stdout', new=StringIO()) as f:
-            HBNBCommand().onecmd(f"BaseModel.show({model_id})")
+            HBNBCommand().onecmd(f"BaseModel.show({bm_id})")
         self.assertEqual(f.getvalue(), '** no instance found **\n')
         with patch('sys.stdout', new=StringIO()) as f:
-            HBNBCommand().onecmd(f"BaseModel.destroy(idf)")
+            HBNBCommand().onecmd(f"BaseModel.destroy(bmid)")
+        self.assertEqual(f.getvalue(), '** no instance found **\n')
+
+    def test_destroy_for_User_Class(self):
+        """ test_destroy_for_User_Class """
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("User.destroy()")
+        self.assertEqual(f.getvalue(), '** instance id missing **\n')
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create User")
+        u_id = f.getvalue().strip()
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"User.destroy({u_id})")
+        self.assertEqual(f.getvalue(), '')
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"User.show({u_id})")
+        self.assertEqual(f.getvalue(), '** no instance found **\n')
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"User.destroy(uid)")
         self.assertEqual(f.getvalue(), '** no instance found **\n')
 
 
