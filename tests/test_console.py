@@ -519,6 +519,24 @@ class TestHBNBCommand_destroy(unittest.TestCase):
             HBNBCommand().onecmd(f"User.destroy(uid)")
         self.assertEqual(f.getvalue(), '** no instance found **\n')
 
+    def test_destroy_for_Review_Class(self):
+        """ test_destroy_for_Review_Class """
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("Review.destroy()")
+        self.assertEqual(f.getvalue(), '** instance id missing **\n')
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create Review")
+        Rv_id = f.getvalue().strip()
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"Review.destroy({Rv_id})")
+        self.assertEqual(f.getvalue(), '')
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"Review.show({Rv_id})")
+        self.assertEqual(f.getvalue(), '** no instance found **\n')
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"Review.destroy(Rvid)")
+        self.assertEqual(f.getvalue(), '** no instance found **\n')
+
 
 class TestHBNBCommand_all(unittest.TestCase):
     """ all command test cases """
