@@ -537,6 +537,78 @@ class TestHBNBCommand_destroy(unittest.TestCase):
             HBNBCommand().onecmd(f"Review.destroy(Rvid)")
         self.assertEqual(f.getvalue(), '** no instance found **\n')
 
+    def test_destroy_for_State_Class(self):
+        """ test_destroy_for_State_Class """
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("State.destroy()")
+        self.assertEqual(f.getvalue(), '** instance id missing **\n')
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create State")
+        state_id = f.getvalue().strip()
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"State.destroy({state_id})")
+        self.assertEqual(f.getvalue(), '')
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"State.show({state_id})")
+        self.assertEqual(f.getvalue(), '** no instance found **\n')
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"State.destroy(stid)")
+        self.assertEqual(f.getvalue(), '** no instance found **\n')
+
+    def test_destroy_for_City_Class(self):
+        """ test_destroy_for_City_Class """
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("City.destroy()")
+        self.assertEqual(f.getvalue(), '** instance id missing **\n')
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create City")
+        city_id = f.getvalue().strip()
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"City.destroy({city_id})")
+        self.assertEqual(f.getvalue(), '')
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"City.show({city_id})")
+        self.assertEqual(f.getvalue(), '** no instance found **\n')
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"City.destroy(cityid)")
+        self.assertEqual(f.getvalue(), '** no instance found **\n')
+
+    def test_destroy_for_Place_Class(self):
+        """ test_destroy_for_Place_Class """
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("Place.destroy()")
+        self.assertEqual(f.getvalue(), '** instance id missing **\n')
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create Place")
+        place_id = f.getvalue().strip()
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"Place.destroy({place_id})")
+        self.assertEqual(f.getvalue(), '')
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"Place.show({place_id})")
+        self.assertEqual(f.getvalue(), '** no instance found **\n')
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"Place.destroy(plid)")
+        self.assertEqual(f.getvalue(), '** no instance found **\n')
+
+    def test_destroy_for_Amenity_Class(self):
+        """ test_destroy_for_Amenity_Class """
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("Amenity.destroy()")
+        self.assertEqual(f.getvalue(), '** instance id missing **\n')
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create Amenity")
+        amd_id = f.getvalue().strip()
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"Amenity.destroy({amd_id})")
+        self.assertEqual(f.getvalue(), '')
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"Amenity.show({amd_id})")
+        self.assertEqual(f.getvalue(), '** no instance found **\n')
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"Amenity.destroy(plid)")
+        self.assertEqual(f.getvalue(), '** no instance found **\n')
+
 
 class TestHBNBCommand_all(unittest.TestCase):
     """ all command test cases """
