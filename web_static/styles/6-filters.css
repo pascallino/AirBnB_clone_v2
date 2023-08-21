@@ -1,7 +1,7 @@
 .filters{
     background-color: white;
     height: 70px;
-    width: 100%;
+    width: 110%;
     border: solid 1px #DDDDDD;
     border-radius: 4px;
     text-align: right;
@@ -79,7 +79,7 @@ ul{
 }
 .locations:hover >.popover{
     visibility: visible;
-    margin-bottom: 50px;
+    margin-bottom: git add .50px;
 }
 
 .amenities:hover > .popover{
