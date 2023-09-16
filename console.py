@@ -65,15 +65,27 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, arg):
         """Ex: $ create User/State create an object class with an id"""
-        args = tokenize(arg)
-        if len(args) == 0:
-            print("** class name missing **")
-        else:
-            if not args[0] in self.__classes:
-                print("** class doesn't exist **")
-            else:
-                print(eval(args[0])().id)
+        try:
+            kv = {}
+            if arg is None:
+                raise SyntaxError()
+            list_arg = arg.split(" ")
+            for item in list_arg[1:]:
+                k, v = tuple(item.split("="))
+                v = eval(v)
+                if isinstance(v, str):
+                    v = v.replace('_', ' ').replace('"', '\\')
+                kv[k] = v
+            if kv == {}:
+                print(eval(arg[0])().id)
                 storage.save()
+        except SyntaxError:
+            print("** class name missing **")
+        except NameError:
+            print("** class doesn't exist **")
+        newobj = eval(list_arg[0])(**kv)
+        newobj.save()
+        print(newobj.id)
 
     def do_show(self, arg):
         """ Prints the string representation of an \

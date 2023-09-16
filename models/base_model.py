@@ -13,19 +13,22 @@ class BaseModel:
     def __init__(self, *args, **kwargs):
         """ initializes the class attributes*arg is an unused variable"""
         str_fdate = "%Y-%m-%dT%H:%M:%S.%f"
+        self.id = str(uuid4())
+        self.created_at = datetime.today()
+        self.updated_at = datetime.today()
         if kwargs is not None and kwargs != {}:
             for k, v in kwargs.items():
                 if k == "created_at":
                     self.__dict__[k] = datetime.strptime(v, str_fdate)
                 elif k == "updated_at":
                     self.__dict__[k] = datetime.strptime(v, str_fdate)
-                else:
+                if k != "__class__":
                     self.__dict__[k] = v
         else:
             self.id = str(uuid4())
             self.created_at = datetime.today()
             self.updated_at = datetime.today()
-            models.storage.new(self)
+            # models.storage.new(self)
 
     def __str__(self):
         """ string representation of the BaseModel intance """
@@ -37,6 +40,7 @@ class BaseModel:
     def save(self):
         """ updates the instance attribute update_at """
         self.updated_at = datetime.now()
+        models.storage.new(self)
         models.storage.save()
 
     def to_dict(self):
@@ -45,4 +49,6 @@ class BaseModel:
         dictcopy["created_at"] = self.created_at.isoformat()
         dictcopy["updated_at"] = self.updated_at.isoformat()
         dictcopy["__class__"] = self.__class__.__name__
+        if '_sa_instance_state' in dictcopy.keys():
+            del dictcopy['_sa_instance_state']
         return dictcopy
