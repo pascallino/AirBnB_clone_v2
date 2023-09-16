@@ -48,11 +48,13 @@ class BaseModel:
         """return all keys and values of the objectinstance from __dict__"""
         dictcopy = self.__dict__.copy()
         if type(self.created_at) is str:
-            dictcopy["created_at"] = self.created_at
+            pass
+            # dictcopy["created_at"] = self.created_at
         else:
             dictcopy["created_at"] = self.created_at.isoformat()
         if type(self.updated_at) is str:
-            dictcopy["updated_at"] = self.updated_at
+            pass
+            # dictcopy["updated_at"] = self.updated_at
         else:
             dictcopy["updated_at"] = self.updated_at.isoformat()
         dictcopy["__class__"] = self.__class__.__name__
