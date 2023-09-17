@@ -17,3 +17,4 @@ last_name: string - empty string"""
     password = Column(String(128), nullable=False)
     first_name = Column(String(128))
     last_name = Column(String(128))
+    places = relationship("Place", backref="user", cascade="delete")
