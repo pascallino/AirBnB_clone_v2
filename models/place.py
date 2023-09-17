@@ -1,9 +1,20 @@
 #!/usr/bin/python3
 """  class place that inherits from BaseModel:"""
 import os
+import models
 from models.base_model import BaseModel, Base
 from sqlalchemy import *
 from sqlalchemy.orm import *
+
+place_amenity = Table("place_amenity", Base.metadata,
+                      Column("amenity_id", String(60),
+                             ForeignKey("amenities.id"),
+                             primary_key=True,
+                             nullable=False),
+                      Column("place_id", String(60),
+                             ForeignKey("places.id"),
+                             primary_key=True,
+                             nullable=False))
 
 
 class Place(BaseModel, Base):
@@ -20,9 +31,27 @@ class Place(BaseModel, Base):
     latitude = Column(Float)
     longitude = Column(Float)
     reviews = relationship("Review", backref="place", cascade="delete")
+    amenities = relationship("Amenity", secondary="place_amenity",
+                             viewonly=False)
     amenity_ids = []
 
     if os.getenv('HBNB_TYPE_STORAGE') != "db":
+        @property
+        def amenities(self):
+            """Get a list of amenities based on the
+            place_amenities table"""
+            amenity_list = []
+            for amenity in models.storage.all(Amenity).values():
+                if amenity.id in self.amenity_ids:
+                    amenity_list.append(amenity)
+            return amenity_list
+
+        @amenities.setter
+        def amenities(self, value):
+            """bind an amenity to a place for saving"""
+            if type(value) == Amenity:
+                self.amenity_ids.append(value.id)
+
         @property
         def cities(self):
             """getter attribute reviewa that returns the list
