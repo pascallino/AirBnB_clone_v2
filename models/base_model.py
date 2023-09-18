@@ -72,7 +72,7 @@ class BaseModel:
             dictcopy["created_at"] = self.created_at.isoformat()
             dictcopy["updated_at"] = self.updated_at.isoformat()
         dictcopy["__class__"] = self.__class__.__name__
-        if '_sa_instance_stat' in dictcopy.keys():
+        if '_sa_instance_state' in dictcopy.keys():
             dictcopy.pop("_sa_instance_state", None)
         return dictcopy
 
