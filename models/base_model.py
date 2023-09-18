@@ -47,6 +47,8 @@ class BaseModel:
     def __str__(self):
         """ string representation of the BaseModel intance """
         # clName = self.__class__.__name__
+        if '_sa_instance_state' in self.__dict__.keys():
+            del self.__dict__['_sa_instance_state']
         clName = type(self).__name__
         str = f"[{clName}] ({self.id}) {self.__dict__}"
         # str = f"[{clName}] ({self.id}) {self.to_dict_db()}"
