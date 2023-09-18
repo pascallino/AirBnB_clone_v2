@@ -22,7 +22,7 @@ class FileStorage:
 
     def all(self, cls=None):
         """ returns the dictionary objects using json.load """
-        if cls:
+        if cls is not None:
             cls_dict = {}
             if isinstance(cls, str):
                 cls = eval(cls)
