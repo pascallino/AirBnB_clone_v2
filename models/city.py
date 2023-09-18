@@ -3,6 +3,7 @@
 from models.base_model import BaseModel, Base
 from sqlalchemy import *
 from sqlalchemy.orm import *
+import os
 
 
 class City(BaseModel, Base):
@@ -10,6 +11,10 @@ class City(BaseModel, Base):
     it will be the State.id
     name: string - empty string"""
     __tablename__ = "cities"
-    name = Column(String(128), nullable=False)
-    state_id = Column(String(60), ForeignKey("states.id"), nullable=False)
-    places = relationship("Place", backref="cities", cascade="delete")
+    if os.getenv('HBNB_TYPE_STORAGE') != "db":
+        state_id = ""
+        name = ""
+    else:
+        name = Column(String(128), nullable=False)
+        state_id = Column(String(60), ForeignKey("states.id"), nullable=False)
+        places = relationship("Place", backref="cities", cascade="delete")

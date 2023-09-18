@@ -5,20 +5,21 @@ import models
 from models.base_model import BaseModel, Base
 from sqlalchemy import *
 from sqlalchemy.orm import *
-
-place_amenity = Table("place_amenity", Base.metadata,
-                      Column("amenity_id", String(60),
-                             ForeignKey("amenities.id"),
-                             primary_key=True,
-                             nullable=False),
-                      Column("place_id", String(60),
-                             ForeignKey("places.id"),
-                             primary_key=True,
-                             nullable=False))
+if os.getenv('HBNB_TYPE_STORAGE') == "db":
+    place_amenity = Table("place_amenity", Base.metadata,
+                          Column("amenity_id", String(60),
+                                 ForeignKey("amenities.id"),
+                                 primary_key=True,
+                                 nullable=False),
+                          Column("place_id", String(60),
+                                 ForeignKey("places.id"),
+                                 primary_key=True,
+                                 nullable=False))
 
 
 class Place(BaseModel, Base):
     """place attributes for class Place"""
+    __tablename__ = "places"
     if os.getenv('HBNB_TYPE_STORAGE') != "db":
         city_id = ""
         user_id = ""
