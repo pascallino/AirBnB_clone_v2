@@ -48,7 +48,7 @@ class BaseModel:
         """ string representation of the BaseModel intance """
         # clName = self.__class__.__name__
         d = self.__dict__.copy()
-        d.pop("_sa_instance_state", None)
+        # d.pop("_sa_instance_state", None)
         clName = type(self).__name__
         str = f"[{clName}] ({self.id}) {d}"
         # str = f"[{clName}] ({self.id}) {self.to_dict_db()}"
