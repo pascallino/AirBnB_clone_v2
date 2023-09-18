@@ -47,8 +47,6 @@ class BaseModel:
     def __str__(self):
         """ string representation of the BaseModel intance """
         # clName = self.__class__.__name__
-        if '_sa_instance_state' in self.__dict__.keys():
-            del self.__dict__['_sa_instance_state']
         clName = type(self).__name__
         str = f"[{clName}] ({self.id}) {self.__dict__}"
         # str = f"[{clName}] ({self.id}) {self.to_dict_db()}"
@@ -59,24 +57,6 @@ class BaseModel:
         self.updated_at = datetime.utcnow()
         models.storage.new(self)
         models.storage.save()
-
-    def to_dict_db(self):
-        """return all keys and values of the objectinstance from __dict__"""
-        dictcopy = self.__dict__.copy()
-        if type(self.created_at) is str:
-            pass
-            # dictcopy["created_at"] = self.created_at
-        else:
-            dictcopy["created_at"] = self.created_at.isoformat()
-        if type(self.updated_at) is str:
-            pass
-            # dictcopy["updated_at"] = self.updated_at
-        else:
-            dictcopy["updated_at"] = self.updated_at.isoformat()
-
-        if '_sa_instance_state' in dictcopy.keys():
-            del dictcopy['_sa_instance_state']
-        return dictcopy
 
     def to_dict(self):
         """return all keys and values of the objectinstance from __dict__"""
