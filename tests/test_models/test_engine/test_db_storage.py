@@ -40,5 +40,6 @@ class TestDBStorage(unittest.TestCase):
         self.query.close()
         self.db.close()
 
+
 if __name__ == "__main__":
     unittest.main()
