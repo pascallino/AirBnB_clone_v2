@@ -66,12 +66,14 @@ class BaseModel:
         # if type(self.created_at) is str:
         # pass
         # dictcopy["created_at"] = self.created_at
-        dictcopy["created_at"] = self.created_at.isoformat()
-        dictcopy["updated_at"] = self.updated_at.isoformat()
+        if type(self.created_at) is str:
+            pass
+        else:
+            dictcopy["created_at"] = self.created_at.isoformat()
+            dictcopy["updated_at"] = self.updated_at.isoformat()
         dictcopy["__class__"] = self.__class__.__name__
-        dictcopy.pop("_sa_instance_state", None)
         if '_sa_instance_state' in dictcopy.keys():
-            del dictcopy['_sa_instance_state']
+            dictcopy.pop("_sa_instance_state", None)
         return dictcopy
 
     def delete(self):
