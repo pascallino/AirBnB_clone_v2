@@ -39,7 +39,7 @@ def tokenize(line):
 
 class HBNBCommand(cmd.Cmd):
     """ Configures the command Interpreter for Holberton app """
-    prompt = '(hbnb) ' if sys.__stdin__.isatty() else ''
+    prompt = "(hbnb) "
     __classes = [
             "BaseModel",
             "User",
