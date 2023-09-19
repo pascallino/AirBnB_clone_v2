@@ -8,6 +8,7 @@ import json
 import os
 from time import sleep
 import models
+from os import getenv
 import unittest
 
 
@@ -31,6 +32,7 @@ class TestAmenity_save(unittest.TestCase):
         except IOError:
             pass
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
     def test_save_for_amenity_object(self):
         """ test_save_for_amenity_object """
         amenity = Amenity()
@@ -47,6 +49,7 @@ class TestAmenity_save(unittest.TestCase):
         with self.assertRaises(TypeError):
             amenity.save(None)
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
     def test_save_on_two_calls(self):
         """ test save for two different calls """
         amenity = Amenity()
@@ -125,6 +128,7 @@ class TestAmenity__init__(unittest.TestCase):
         amenity = Amenity(None)
         self.assertNotIn(None, amenity.__dict__.values())
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
     def test_name_is_public_class_attribute(self):
         """ check if attr type is same as dict as well"""
         amenity = Amenity()
@@ -136,6 +140,7 @@ class TestAmenity__init__(unittest.TestCase):
         """ test Amenity type """
         self.assertEqual(type(Amenity()), Amenity)
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
     def test_Amenity_public_attributes_type(self):
         """ test_public_public_attributes_type """
         self.assertEqual(str, type(Amenity.name))
@@ -170,6 +175,7 @@ class TestAmenity__init__(unittest.TestCase):
         amd_1 = Amenity()
         self.assertNotEqual(amd.id, amd_1.id)
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
     def test_storage_type(self):
         """ test storage type"""
         self.assertEqual(type(models.storage), FileStorage)

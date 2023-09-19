@@ -9,6 +9,7 @@ import os
 from time import sleep
 import models
 import unittest
+from os import getenv
 
 
 class TestReview_save(unittest.TestCase):
@@ -33,6 +34,7 @@ class TestReview_save(unittest.TestCase):
         except IOError:
             pass
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
     def test_save_for_review_object(self):
         """ test_save_for_review_object """
         review = Review()
@@ -49,6 +51,7 @@ class TestReview_save(unittest.TestCase):
         with self.assertRaises(TypeError):
             review.save(None)
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
     def test_save_on_two_calls(self):
         """ test save for two different calls """
         review = Review()
@@ -196,6 +199,7 @@ class TestReview__init__(unittest.TestCase):
         review = Review()
         self.assertTrue(issubclass(type(review), BaseModel))
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
     def test_name_is_public_class_attribute(self):
         """ check if attr type is same as dict as well"""
         review = Review()
@@ -208,10 +212,12 @@ class TestReview__init__(unittest.TestCase):
         """ test Review type """
         self.assertEqual(type(Review()), Review)
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
     def test_Review_public_attributes_type(self):
         """ test_public_public_attributes_type """
         self.assertEqual(str, type(Review.user_id))
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
     def test_id_if_typeis_str(self):
         """ test_id_if_typeis_str"""
         self.assertEqual(str, type(Review().user_id))

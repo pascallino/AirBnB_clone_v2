@@ -40,6 +40,21 @@ class TestDBStorage(unittest.TestCase):
         self.query.close()
         self.db.close()
 
+    def testall_Dbstorage(self):
+        """ test for Dbstorage and alll method
+        no element in tables"""
+        user = User(email="pas@gh.com",
+                    password='yuyy', first_name='jj', last_name='oj')
+        self.storage.new(user)
+        self.storage.save()
+        self.storage.reload()
+        text = "select * from users"
+        self.query.execute(text)
+        count = self.query.fetchall()
+        dict = {}
+        dict = self.storage.all('User')
+        self.assertEqual(len(count), len(dict))
+
 
 if __name__ == "__main__":
     unittest.main()

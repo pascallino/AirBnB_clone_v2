@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ unit test for Based Modelunittest class:Base Model Class"""
 from time import sleep
+from os import getenv
 import sys
 import os
 import unittest
@@ -53,6 +54,7 @@ class TestBaseModel___init__(unittest.TestCase):
         base2 = BaseModel()
         self.assertLess(base1.updated_at, base2.updated_at)
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
     def test_different_created_at(self):
         """ Test for two different dates """
         base1 = BaseModel()
@@ -78,6 +80,7 @@ class TestBaseModel___init__(unittest.TestCase):
         self.assertEqual(bcopy["name"], base1.name)
         self.assertEqual(bcopy["age"], base1.age)
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
     def test_kwargs(self):
         """ test kwargs argument to_dict() args """
         dtnow = datetime.today()
@@ -100,6 +103,7 @@ class TestBaseModel___init__(unittest.TestCase):
         self.assertIn("'created_at': " + dt_repr, bmodel1str)
         self.assertIn("'updated_at': " + dt_repr, bmodel1str)
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
     def test_save_time_diff(self):
         """Test save() method time interval"""
         bmodel1 = BaseModel()
@@ -200,6 +204,7 @@ class TestBaseModel_save(unittest.TestCase):
         except IOError:
             pass
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
     def test_save_if_object_in_file(self):
         """test_save_if_object_in_<file.json>"""
         bmodel = BaseModel()
@@ -208,6 +213,7 @@ class TestBaseModel_save(unittest.TestCase):
         with open("file.json", "r") as file:
             self.assertIn(bmodelid, file.read())
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
     def test_save_calls_storage_dot_save_method_in_fileStorage(self):
         """test_save_calls_storage_dot_save_method_in_fileStorage"""
         self.clearStorage()

@@ -6,6 +6,7 @@ from models.state import State
 from datetime import datetime
 import json
 import os
+from os import getenv
 from time import sleep
 import models
 import unittest
@@ -33,6 +34,7 @@ class TestState_save(unittest.TestCase):
         except IOError:
             pass
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
     def test_save_for_state_object(self):
         """ test_save_for_city_object """
         state = State()
@@ -49,6 +51,7 @@ class TestState_save(unittest.TestCase):
         with self.assertRaises(TypeError):
             state.save(None)
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
     def test_save_on_two_calls(self):
         """ test save for two different calls """
         state = State()
@@ -192,6 +195,7 @@ class TestState__init__(unittest.TestCase):
         state = State()
         self.assertTrue(issubclass(type(state), BaseModel))
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
     def test_name_is_public_class_attribute(self):
         """ check if attr type is same as dict as well"""
         state = State()
@@ -203,10 +207,12 @@ class TestState__init__(unittest.TestCase):
         """ test State type """
         self.assertEqual(type(State()), State)
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
     def test_State_public_attributes_type(self):
         """ test_public_public_attributes_type """
         self.assertEqual(str, type(State.name))
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
     def test_id_if_typeis_str(self):
         """ test_id_if_typeis_str"""
         self.assertEqual(str, type(State().name))
