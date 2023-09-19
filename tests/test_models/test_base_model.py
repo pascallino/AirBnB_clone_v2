@@ -14,7 +14,6 @@ import models
 import json
 
 
-@unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
 class TestBaseModel___init__(unittest.TestCase):
     """ testing the BaseModel ___init___ method """
 
@@ -81,7 +80,7 @@ class TestBaseModel___init__(unittest.TestCase):
         self.assertEqual(bcopy["name"], base1.name)
         self.assertEqual(bcopy["age"], base1.age)
 
-    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == "db", "NO DB")
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
     def test_kwargs(self):
         """ test kwargs argument to_dict() args """
         dtnow = datetime.today()
@@ -112,8 +111,7 @@ class TestBaseModel___init__(unittest.TestCase):
         dtnow = datetime.now()
         bmodel1.save()
         dtdiff = bmodel1.updated_at - dtnow
-        if getenv("HBNB_TYPE_STORAGE") != 'db':
-            self.assertTrue(abs(dtdiff.total_seconds()) < 0.01)
+        self.assertTrue(abs(dtdiff.total_seconds()) < 0.01)
 
     def test_for_None_kwargs_params(self):
         """ test for none for all key value parameters"""
