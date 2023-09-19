@@ -549,7 +549,7 @@ class TestHBNBCommand_destroy(unittest.TestCase):
             HBNBCommand().onecmd(f"Review.destroy(Rvid)")
         self.assertEqual(f.getvalue(), '** no instance found **\n')
 
-    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") != 'db', 'NO DB')
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
     def test_destroy_for_State_Class(self):
         """ test_destroy_for_State_Class """
         with patch('sys.stdout', new=StringIO()) as f:
@@ -626,6 +626,7 @@ class TestHBNBCommand_destroy(unittest.TestCase):
         self.assertEqual(f.getvalue(), '** no instance found **\n')
 
 
+@unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
 class TestHBNBCommand_all(unittest.TestCase):
     """ all command test cases """
     @classmethod
@@ -647,6 +648,7 @@ class TestHBNBCommand_all(unittest.TestCase):
         except IOError:
             pass
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
     def test_all_class_doesnt_exit(self):
         """ test class doent exist for all <class name> """
         errormsg = "** class doesn't exist **"
@@ -696,6 +698,7 @@ class TestHBNBCommand_all(unittest.TestCase):
             self.assertIn("Review", output.getvalue().strip())
             self.assertNotIn("BaseModel", output.getvalue().strip())
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
     def test_all_objects_withoutclass_withparenthesis(self):
         """ test display of all objet Usage .all()"""
         with patch("sys.stdout", new=StringIO()) as output:
@@ -716,6 +719,7 @@ class TestHBNBCommand_all(unittest.TestCase):
             self.assertIn("Amenity", output.getvalue().strip())
             self.assertIn("Review", output.getvalue().strip())
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
     def test_all_objects_display(self):
         """ test for all objects display """
         with patch("sys.stdout", new=StringIO()) as output:
@@ -736,6 +740,7 @@ class TestHBNBCommand_all(unittest.TestCase):
             self.assertIn("Amenity", output.getvalue().strip())
             self.assertIn("Review", output.getvalue().strip())
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
     def test_all_specific_class_display_with_all_parenthesis(self):
         """ test <class name>.all()  if output is correct"""
         with patch("sys.stdout", new=StringIO()) as output:
