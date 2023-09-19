@@ -45,7 +45,9 @@ class TestDBStorage(unittest.TestCase):
         no element in tables"""
         user = User(email="pas@gh.com",
                     password='yuyy', first_name='jj', last_name='oj')
+        state = State(name="California")
         self.storage.new(user)
+        self.storage.new(state)
         self.storage.save()
         self.storage.reload()
         text = "select * from users"
@@ -53,6 +55,11 @@ class TestDBStorage(unittest.TestCase):
         count = self.query.fetchall()
         dict = {}
         dict = self.storage.all('User')
+        self.assertEqual(len(count), len(dict))
+        text = "select * from states"
+        self.query.execute(text)
+        count = self.query.fetchall()
+        dict = self.storage.all('State')
         self.assertEqual(len(count), len(dict))
 
 
