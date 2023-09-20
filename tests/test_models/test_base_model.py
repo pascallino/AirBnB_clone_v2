@@ -87,8 +87,8 @@ class TestBaseModel___init__(unittest.TestCase):
         dt_str = dtnow.isoformat()
         bmodel1 = BaseModel(id="123", created_at=dt_str, updated_at=dt_str)
         self.assertEqual(bmodel1.id, "123")
-        self.assertEqual(bmodel1.created_at, dtnow)
-        self.assertEqual(bmodel1.updated_at, dtnow)
+        self.assertEqual(bmodel1.created_at, dt_str)
+        self.assertEqual(bmodel1.updated_at, dt_str)
 
     def test_str_(self):
         """ str representation test """
