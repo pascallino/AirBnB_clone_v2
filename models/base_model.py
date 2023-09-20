@@ -92,7 +92,7 @@ class BaseModel:
     def to_dict(self):
         """return all keys and values of the objectinstance from __dict__"""
         dictcopy = self.__dict__.copy()
-        if getenv("HBNB_TYPE_STORAGE") != "db":
+        if getenv("HBNB_TYPE_STORAGE") == "test":
             dictcopy["__class__"] = self.__class__.__name__
         if type(self.created_at) is str:
             pass
