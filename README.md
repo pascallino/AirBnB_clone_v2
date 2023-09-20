@@ -155,4 +155,5 @@ To run the tests in non-interactive mode, and discover all the test, you can use
 python3 -m unittest discover tests
 ```
 <hr />
+
 # AirBnB clone - MySQL
