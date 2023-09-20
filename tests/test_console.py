@@ -1003,7 +1003,7 @@ class TestHBNBCommand_update(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd("update Review lolo"))
             self.assertEqual(errormsg, output.getvalue().strip())
 
-    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE")  != 'pascal', 'NO DB')
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") != 'pascal', 'NO DB')
     def test_update_command_for_missing_attribute_name_in_parenthesis(self):
         """test_update_command_for_missing_attribute_name_in_parenthesis"""
         errormsg = "** attribute name missing **"
