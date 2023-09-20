@@ -159,3 +159,4 @@ python3 -m unittest discover tests
 # AirBnB clone - MySQL
 ## Background Context
 Environment variables will be your best friend for this project!
+*
