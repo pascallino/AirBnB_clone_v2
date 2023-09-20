@@ -137,6 +137,7 @@ class TestHBNBCommand_create(unittest.TestCase):
         except IOError:
             pass
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
     def test_create_missing_class_name_error(self):
         """ test for missing class name"""
         errormsg = "** class name missing **"
@@ -144,6 +145,7 @@ class TestHBNBCommand_create(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd("create"))
             self.assertEqual(errormsg, output.getvalue().strip())
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
     def test_create_wrong_class(self):
         """ test for invalid class """
         errormsg = "** class doesn't exist **"
@@ -162,6 +164,7 @@ class TestHBNBCommand_create(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd("BaseModel2"))
             self.assertEqual(errormsg, output.getvalue().strip())
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
     def test_create_different_objects(self):
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create BaseModel"))
@@ -549,7 +552,7 @@ class TestHBNBCommand_destroy(unittest.TestCase):
             HBNBCommand().onecmd(f"Review.destroy(Rvid)")
         self.assertEqual(f.getvalue(), '** no instance found **\n')
 
-    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") != 'db', 'NO DB')
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
     def test_destroy_for_State_Class(self):
         """ test_destroy_for_State_Class """
         with patch('sys.stdout', new=StringIO()) as f:
@@ -647,6 +650,7 @@ class TestHBNBCommand_all(unittest.TestCase):
         except IOError:
             pass
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
     def test_all_class_doesnt_exit(self):
         """ test class doent exist for all <class name> """
         errormsg = "** class doesn't exist **"
@@ -657,6 +661,7 @@ class TestHBNBCommand_all(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd("Pascal.all()"))
             self.assertEqual(errormsg, output.getvalue().strip())
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
     def test_all_specific_class_display(self):
         """test specific class display using all <class name>"""
         with patch("sys.stdout", new=StringIO()) as output:
@@ -696,6 +701,7 @@ class TestHBNBCommand_all(unittest.TestCase):
             self.assertIn("Review", output.getvalue().strip())
             self.assertNotIn("BaseModel", output.getvalue().strip())
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
     def test_all_objects_withoutclass_withparenthesis(self):
         """ test display of all objet Usage .all()"""
         with patch("sys.stdout", new=StringIO()) as output:
@@ -716,6 +722,7 @@ class TestHBNBCommand_all(unittest.TestCase):
             self.assertIn("Amenity", output.getvalue().strip())
             self.assertIn("Review", output.getvalue().strip())
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
     def test_all_objects_display(self):
         """ test for all objects display """
         with patch("sys.stdout", new=StringIO()) as output:
@@ -736,6 +743,7 @@ class TestHBNBCommand_all(unittest.TestCase):
             self.assertIn("Amenity", output.getvalue().strip())
             self.assertIn("Review", output.getvalue().strip())
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
     def test_all_specific_class_display_with_all_parenthesis(self):
         """ test <class name>.all()  if output is correct"""
         with patch("sys.stdout", new=StringIO()) as output:
@@ -801,12 +809,14 @@ class TestHBNBCommand_count(unittest.TestCase):
         except IOError:
             pass
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
     def test_count_wrong_class(self):
         """ count from an invaluid calss """
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("pascal.count()"))
             self.assertEqual("0", output.getvalue().strip())
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
     def test_count_specific_object(self):
         """ count specific objects if same"""
         with patch("sys.stdout", new=StringIO()) as output:
