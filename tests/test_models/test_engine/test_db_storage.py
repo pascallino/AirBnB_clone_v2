@@ -61,6 +61,20 @@ class TestDBStorage(unittest.TestCase):
         count = self.query.fetchall()
         dict = self.storage.all('State')
         self.assertEqual(len(count), len(dict))
+        text = "SELECT id FROM states WHERE id = 1"
+        self.query.execute(text)
+        stateid = self.query.fetchone()
+        if stateid is not None:
+            stateid = stateid[0]
+            city = City(state_id=stateid, name="San_Francisco")
+            self.storage.new(city)
+            self.storage.save()
+            self.storage.reload()
+            text = "select * from cities"
+            self.query.execute(text)
+            count = self.query.fetchall()
+            dict = self.storage.all('City')
+            self.assertEqual(len(count), len(dict))
 
 
 if __name__ == "__main__":
