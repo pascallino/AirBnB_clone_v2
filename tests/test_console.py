@@ -609,7 +609,7 @@ class TestHBNBCommand_destroy(unittest.TestCase):
             HBNBCommand().onecmd(f"Place.destroy(plid)")
         self.assertEqual(f.getvalue(), '** no instance found **\n')
 
-    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") != 'idb', 'NO DB')
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
     def test_destroy_for_Amenity_Class(self):
         """ test_destroy_for_Amenity_Class """
         with patch('sys.stdout', new=StringIO()) as f:

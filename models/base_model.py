@@ -8,7 +8,6 @@ from sqlalchemy import *
 from sqlalchemy.orm import *
 from sqlalchemy.ext.declarative import declarative_base
 import models
-from os import getenv
 
 
 Base = declarative_base()
@@ -43,8 +42,7 @@ class BaseModel:
             self.id = str(uuid4())
             self.created_at = datetime.utcnow()
             self.updated_at = datetime.utcnow()
-            if getenv("HBNB_TYPE_STORAGE") != "db":
-                models.storage.new(self)
+            # models.storage.new(self)
 
     def __str__(self):
         """ string representation of the BaseModel intance """
@@ -59,8 +57,7 @@ class BaseModel:
     def save(self):
         """ updates the instance attribute update_at """
         self.updated_at = datetime.utcnow()
-        if getenv("HBNB_TYPE_STORAGE") == "db":
-            models.storage.new(self)
+        models.storage.new(self)
         models.storage.save()
 
     def to_dict_db(self):

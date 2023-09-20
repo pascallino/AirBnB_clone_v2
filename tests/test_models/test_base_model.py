@@ -80,7 +80,7 @@ class TestBaseModel___init__(unittest.TestCase):
         self.assertEqual(bcopy["name"], base1.name)
         self.assertEqual(bcopy["age"], base1.age)
 
-    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") != 'idb', 'NO DB')
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
     def test_kwargs(self):
         """ test kwargs argument to_dict() args """
         dtnow = datetime.today()
@@ -103,7 +103,7 @@ class TestBaseModel___init__(unittest.TestCase):
         self.assertIn("'created_at': " + dt_repr, bmodel1str)
         self.assertIn("'updated_at': " + dt_repr, bmodel1str)
 
-    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") != 'idb', 'NO DB')
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
     def test_save_time_diff(self):
         """Test save() method time interval"""
         bmodel1 = BaseModel()
