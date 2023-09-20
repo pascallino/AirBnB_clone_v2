@@ -12,6 +12,7 @@ from models.city import City
 from models.place import Place
 from models.review import Review
 from models.state import State
+from os import getenv
 
 
 def tokenize(line):
@@ -129,7 +130,10 @@ class HBNBCommand(cmd.Cmd):
         """<class name>.all(), all, all <class name>"""
         objlist = []
         args = tokenize(arg)
-        loadallobj = storage.all(eval(args[0]))
+        if getenv("HBNB_TYPE_STORAGE") == "db":
+            loadallobj = storage.all(eval(args[0]))
+        else:
+            loadallobj = storage.all()
         if len(args) >= 1:
             if not args[0] in self.__classes:
                 print("** class doesn't exist **")

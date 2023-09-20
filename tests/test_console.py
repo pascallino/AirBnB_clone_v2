@@ -137,7 +137,7 @@ class TestHBNBCommand_create(unittest.TestCase):
         except IOError:
             pass
 
-    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") != 'pascal', 'NO DB')
     def test_create_missing_class_name_error(self):
         """ test for missing class name"""
         errormsg = "** class name missing **"
@@ -145,7 +145,7 @@ class TestHBNBCommand_create(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd("create"))
             self.assertEqual(errormsg, output.getvalue().strip())
 
-    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") != 'pascal', 'NO DB')
     def test_create_wrong_class(self):
         """ test for invalid class """
         errormsg = "** class doesn't exist **"
@@ -153,6 +153,7 @@ class TestHBNBCommand_create(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd("create Pascal"))
             self.assertEqual(errormsg, output.getvalue().strip())
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") != 'pascal', 'NO DB')
     def test_create_wrong_command(self):
         """ test for wrong command"""
         errormsg = "*** Unknown syntax: classes"
@@ -164,7 +165,7 @@ class TestHBNBCommand_create(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd("BaseModel2"))
             self.assertEqual(errormsg, output.getvalue().strip())
 
-    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") != 'pascal', 'NO DB')
     def test_create_different_objects(self):
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create BaseModel"))
@@ -301,7 +302,7 @@ class TestHBNBCommand_show(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd("Review.show()"))
             self.assertEqual(errormsg, output.getvalue().strip())
 
-    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") != 'pascal', 'NO DB')
     def test_show_output_for_objects_dict(self):
         """ test show for new objects created """
         with patch("sys.stdout", new=StringIO()) as output:
@@ -413,7 +414,7 @@ class TestHBNBCommand_show(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd("show Review 966567"))
             self.assertEqual(errormsg, output.getvalue().strip())
 
-    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") != 'pascal', 'NO DB')
     def test_show_output_for_objects_keys_InParenthesis(self):
         """ test show.(id) output """
         with patch("sys.stdout", new=StringIO()) as output:
@@ -495,7 +496,7 @@ class TestHBNBCommand_destroy(unittest.TestCase):
         except IOError:
             pass
 
-    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") != 'pascal', 'NO DB')
     def test_destroy_for_BaseModel(self):
         """ test_destroy_for_BaseModel """
         with patch('sys.stdout', new=StringIO()) as f:
@@ -514,7 +515,7 @@ class TestHBNBCommand_destroy(unittest.TestCase):
             HBNBCommand().onecmd(f"BaseModel.destroy(bmid)")
         self.assertEqual(f.getvalue(), '** no instance found **\n')
 
-    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") != 'pascal', 'NO DB')
     def test_destroy_for_User_Class(self):
         """ test_destroy_for_User_Class """
         with patch('sys.stdout', new=StringIO()) as f:
@@ -533,7 +534,7 @@ class TestHBNBCommand_destroy(unittest.TestCase):
             HBNBCommand().onecmd(f"User.destroy(uid)")
         self.assertEqual(f.getvalue(), '** no instance found **\n')
 
-    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") != 'Pascal', 'NO DB')
     def test_destroy_for_Review_Class(self):
         """ test_destroy_for_Review_Class """
         with patch('sys.stdout', new=StringIO()) as f:
@@ -552,7 +553,7 @@ class TestHBNBCommand_destroy(unittest.TestCase):
             HBNBCommand().onecmd(f"Review.destroy(Rvid)")
         self.assertEqual(f.getvalue(), '** no instance found **\n')
 
-    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") != 'pascal', 'NO DB')
     def test_destroy_for_State_Class(self):
         """ test_destroy_for_State_Class """
         with patch('sys.stdout', new=StringIO()) as f:
@@ -571,7 +572,7 @@ class TestHBNBCommand_destroy(unittest.TestCase):
             HBNBCommand().onecmd(f"State.destroy(stid)")
         self.assertEqual(f.getvalue(), '** no instance found **\n')
 
-    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") != 'pascal', 'NO DB')
     def test_destroy_for_City_Class(self):
         """ test_destroy_for_City_Class """
         with patch('sys.stdout', new=StringIO()) as f:
@@ -590,7 +591,7 @@ class TestHBNBCommand_destroy(unittest.TestCase):
             HBNBCommand().onecmd(f"City.destroy(cityid)")
         self.assertEqual(f.getvalue(), '** no instance found **\n')
 
-    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") != 'pascal', 'NO DB')
     def test_destroy_for_Place_Class(self):
         """ test_destroy_for_Place_Class """
         with patch('sys.stdout', new=StringIO()) as f:
@@ -609,7 +610,7 @@ class TestHBNBCommand_destroy(unittest.TestCase):
             HBNBCommand().onecmd(f"Place.destroy(plid)")
         self.assertEqual(f.getvalue(), '** no instance found **\n')
 
-    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") != 'pascal', 'NO DB')
     def test_destroy_for_Amenity_Class(self):
         """ test_destroy_for_Amenity_Class """
         with patch('sys.stdout', new=StringIO()) as f:
@@ -1002,7 +1003,7 @@ class TestHBNBCommand_update(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd("update Review lolo"))
             self.assertEqual(errormsg, output.getvalue().strip())
 
-    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE")  != 'pascal', 'NO DB')
     def test_update_command_for_missing_attribute_name_in_parenthesis(self):
         """test_update_command_for_missing_attribute_name_in_parenthesis"""
         errormsg = "** attribute name missing **"
@@ -1056,7 +1057,7 @@ class TestHBNBCommand_update(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd(Cmd))
             self.assertEqual(errormsg, output.getvalue().strip())
 
-    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") != 'pascal', 'NO DB')
     def test_update_command_for_missing_attribute_name(self):
         """test_update_command_for_missing_attribute_name"""
         errormsg = "** attribute name missing **"
@@ -1111,7 +1112,7 @@ class TestHBNBCommand_update(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd(Cmd))
             self.assertEqual(errormsg, output.getvalue().strip())
 
-    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") != 'pascal', 'NO DB')
     def test_update_for_missing_attr_value(self):
         """ test update command for missing attr
         value without the parenthesis"""
@@ -1166,7 +1167,7 @@ class TestHBNBCommand_update(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd(Cmd))
             self.assertEqual(errormsg, output.getvalue().strip())
 
-    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") != 'pascal', 'NO DB')
     def test_update_for_missing_attr_value_in_parenthesis(self):
         """test_update_for_missing_attr_value_in_parenthesis """
         errormsg = "** value missing **"
@@ -1220,7 +1221,7 @@ class TestHBNBCommand_update(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd(Cmd))
             self.assertEqual(errormsg, output.getvalue().strip())
 
-    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") != 'pascal', 'NO DB')
     def test_update_if_value_are_same(self):
         """ test_update_if_value_are_same """
         with patch("sys.stdout", new=StringIO()) as output:
@@ -1279,7 +1280,7 @@ class TestHBNBCommand_update(unittest.TestCase):
         test_dict = storage.all()["Review.{}".format(AmdId)]
         self.assertEqual("house", test_dict.__dict__["text"])
 
-    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") != 'pascal', 'NO DB')
     def test_update_if_value_are_same_parenthesis(self):
         """ test_update_if_value_are_same_parenthesis """
         with patch("sys.stdout", new=StringIO()) as output:
@@ -1338,7 +1339,7 @@ class TestHBNBCommand_update(unittest.TestCase):
         test_dict = storage.all()["Review.{}".format(AmdId)]
         self.assertEqual("house", test_dict.__dict__["text"])
 
-    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") != 'pascal', 'NO DB')
     def test_update_dictionary_key_and_value_pair(self):
         """test_update_dictionary_key_and_value_pair"""
         with patch("sys.stdout", new=StringIO()) as output:
@@ -1404,7 +1405,7 @@ class TestHBNBCommand_update(unittest.TestCase):
         test_dict = storage.all()["State.{}".format(bmId)].__dict__
         self.assertEqual("f_value", test_dict["f_name"])
 
-    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") != 'pascal', 'NO DB')
     def test_update_dictionary_key_and_value_pair_in_parenthesis(self):
         """test_update_dictionary_key_and_value_pair_in_parenthesis"""
         with patch("sys.stdout", new=StringIO()) as output:
@@ -1461,7 +1462,7 @@ class TestHBNBCommand_update(unittest.TestCase):
         test_dict = storage.all()["Amenity.{}".format(bmId)].__dict__
         self.assertEqual("f_value", test_dict["f_name"])
 
-    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") != 'pascal', 'NO DB')
     def test_update_validate_if_integer_attvalue_saves(self):
         """test_update_validate_if_integer_attvalue_saves"""
         with patch("sys.stdout", new=StringIO()) as output:
@@ -1472,7 +1473,7 @@ class TestHBNBCommand_update(unittest.TestCase):
         test_dict = storage.all()["Place.{}".format(PlaceId)].__dict__
         self.assertEqual(98, test_dict["number_bathrooms"])
 
-    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") != 'pascal', 'NO DB')
     def test_update_validate_if_integer_attvalue_saves_parenthesis(self):
         """test_update_validate_if_integer_attvalue_saves_parenthesis"""
         with patch("sys.stdout", new=StringIO()) as output:
@@ -1483,7 +1484,7 @@ class TestHBNBCommand_update(unittest.TestCase):
         test_dict = storage.all()["Place.{}".format(PlaceId)].__dict__
         self.assertEqual(198, test_dict["max_guest"])
 
-    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") != 'pascal', 'NO DB')
     def test_update_validate_if_float_attvalue_saves(self):
         """test_update_validate_if_float_attvalue_saves"""
         with patch("sys.stdout", new=StringIO()) as output:
@@ -1494,7 +1495,7 @@ class TestHBNBCommand_update(unittest.TestCase):
         test_dict = storage.all()["Place.{}".format(PlaceId)].__dict__
         self.assertEqual(9.3, test_dict["longitude"])
 
-    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") != 'pascal', 'NO DB')
     def test_for_integer_value_in_dictionary_parenthesis(self):
         """test_for_integer_value_in_dictionary_parenthesis"""
         with patch("sys.stdout", new=StringIO()) as output:
@@ -1506,7 +1507,7 @@ class TestHBNBCommand_update(unittest.TestCase):
         test_dict = storage.all()["Place.{}".format(bmId)].__dict__
         self.assertEqual(290, test_dict["max_guest"])
 
-    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") != 'pascal', 'NO DB')
     def test_for_integer_value_in_dictionary(self):
         """test_for_integer_value_in_dictionary"""
         with patch("sys.stdout", new=StringIO()) as output:
@@ -1518,7 +1519,7 @@ class TestHBNBCommand_update(unittest.TestCase):
         test_dict = storage.all()["Place.{}".format(bmId)].__dict__
         self.assertEqual(290, test_dict["max_guest"])
 
-    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") != 'pascal', 'NO DB')
     def test_for_float_value_in_dictionary(self):
         """test_for_float_value_in_dictionary"""
         with patch("sys.stdout", new=StringIO()) as output:
@@ -1530,7 +1531,7 @@ class TestHBNBCommand_update(unittest.TestCase):
         test_dict = storage.all()["Place.{}".format(bmId)].__dict__
         self.assertEqual(2.80, test_dict["longitude"])
 
-    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'NO DB')
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") != 'pascal', 'NO DB')
     def test_for_float_value_in_dictionary_parenthesis(self):
         """test_for_float_value_in_dictionary_parenthesis"""
         with patch("sys.stdout", new=StringIO()) as output:
