@@ -12,7 +12,6 @@ from models.city import City
 from models.place import Place
 from models.review import Review
 from models.state import State
-from os import getenv
 
 
 def tokenize(line):
@@ -66,39 +65,27 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, arg):
         """Ex: $ create User/State create an object class with an id"""
-        if getenv("HBNB_TYPE_STORAGE") != 'db':
-            """<class name>.all(), all, all <class name>"""
-            args = tokenize(arg)
-            if len(args) == 0:
-                print("** class name missing **")
-            else:
-                if not args[0] in self.__classes:
-                    print("** class doesn't exist **")
-                else:
-                    print(eval(args[0])().id)
-                    storage.save()
-        else:
-            try:
-                kv = {}
-                if arg is None:
-                    raise SyntaxError()
-                list_arg = arg.split(" ")
-                for item in list_arg[1:]:
-                    k, v = tuple(item.split("="))
-                    v = eval(v)
-                    if isinstance(v, str):
-                        v = v.replace('_', ' ').replace('"', '\\')
-                    kv[k] = v
-                if kv == {}:
-                    print(eval(arg[0])().id)
-                    storage.save()
-            except SyntaxError:
-                print("** class name missing **")
-            except NameError:
-                print("** class doesn't exist **")
-            newobj = eval(list_arg[0])(**kv)
-            newobj.save()
-            print(newobj.id)
+        try:
+            kv = {}
+            if arg is None:
+                raise SyntaxError()
+            list_arg = arg.split(" ")
+            for item in list_arg[1:]:
+                k, v = tuple(item.split("="))
+                v = eval(v)
+                if isinstance(v, str):
+                    v = v.replace('_', ' ').replace('"', '\\')
+                kv[k] = v
+            if kv == {}:
+                print(eval(arg[0])().id)
+                storage.save()
+        except SyntaxError:
+            print("** class name missing **")
+        except NameError:
+            print("** class doesn't exist **")
+        newobj = eval(list_arg[0])(**kv)
+        newobj.save()
+        print(newobj.id)
 
     def do_show(self, arg):
         """ Prints the string representation of an \
@@ -142,10 +129,7 @@ class HBNBCommand(cmd.Cmd):
         """<class name>.all(), all, all <class name>"""
         objlist = []
         args = tokenize(arg)
-        if getenv("HBNB_TYPE_STORAGE") == "db":
-            loadallobj = storage.all(eval(args[0]))
-        else:
-            loadallobj = storage.all()
+        loadallobj = storage.all(eval(args[0]))
         if len(args) >= 1:
             if not args[0] in self.__classes:
                 print("** class doesn't exist **")
