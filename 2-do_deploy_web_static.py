@@ -15,7 +15,7 @@ def do_deploy(archive_path):
         return False
     filename = os.path.basename(archive_path)
     # remove '.tgz'
-    name_only = os.path.splitext(file_name)[0]
+    name_only = os.path.splitext(filename)[0]
 
     if put(archive_path, "/tmp/{}".format(filename)).failed is True:
         return False
