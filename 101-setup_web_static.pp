@@ -29,7 +29,7 @@ file { '/var/www/html/index.html':
 
 file { '/var/www/error/404.html':
   content => "Ceci n'est pas une page",
-  require => File['/etc/nginx/html/404.html'],
+  require => File['/var/www/error/404.html'],
 }
 
 exec { 'make-static-files-folder':
