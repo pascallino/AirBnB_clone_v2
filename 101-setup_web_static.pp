@@ -24,12 +24,12 @@ file { '/var/www':
 
 file { '/var/www/html/index.html':
   content => 'Hello, World!',
-  require => File['/var/www'],
+  require => File['/var/www/html/index.html'],
 }
 
 file { '/var/www/error/404.html':
   content => "Ceci n'est pas une page",
-  require => File['/var/www'],
+  require => File['/etc/nginx/html/404.html'],
 }
 
 exec { 'make-static-files-folder':
