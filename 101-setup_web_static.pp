@@ -24,12 +24,12 @@ file { '/var/www':
 
 file { '/var/www/html/index.html':
   content => 'Hello, World!',
-  require => File['/var/www/html/index.html'],
+  require => File['/var/www'],
 }
 
 file { '/var/www/error/404.html':
   content => "Ceci n'est pas une page",
-  require => File['/var/www/error/404.html'],
+  require => File['/var/www'],
 }
 
 exec { 'make-static-files-folder':
@@ -40,14 +40,12 @@ exec { 'make-static-files-folder':
 
 file { '/data/web_static/releases/test/index.html':
   content =>
-"<!DOCTYPE html>
-<html lang='en-US'>
-	<head>
-		<title>Home - AirBnB Clone</title>
-	</head>
-	<body>
-		<h1>Welcome to AirBnB!</h1>
-	<body>
+"<html>
+  <head>
+  </head>
+  <body>
+    Holberton School
+  </body>
 </html>
 ",
   replace => true,
