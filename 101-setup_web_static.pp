@@ -84,7 +84,7 @@ file { '/etc/nginx/sites-available/default':
 	}
 	location /hbnb_static/ {
 		alias /data/web_static/current/;
-		try_files \$uri \$uri/ =404;
+		index index.html index.htm;
 	}
 	if (\$request_filename ~ redirect_me){
 		rewrite ^ https://sketchfab.com/bluepeno/models permanent;
