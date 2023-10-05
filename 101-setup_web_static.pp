@@ -77,7 +77,7 @@ file { '/etc/nginx/sites-available/default':
 	server_name _;
 	index index.html index.htm;
 	error_page 404 /404.html;
-	add_header X-Served-By \$hostname;
+	add_header X-Served-By ${hostname};
 	location / {
 		root /var/www/html/;
 		try_files \$uri \$uri/ =404;
