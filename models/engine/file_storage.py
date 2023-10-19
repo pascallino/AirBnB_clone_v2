@@ -63,3 +63,7 @@ class FileStorage:
             clName = obj.__class__.__name__
             key = f"{clName}.{obj.id}"
             del FileStorage.__objects[key]
+
+    def close(self):
+        """ calls reload()"""
+        self.reload()
